@@ -71,10 +71,9 @@ public class CellularAutomata extends Project {
 	}
 
 	char checkCells(int start, String currentGen, String model) {
-		String rev = "";
-		for (int i = 0; i < model.length(); i++) {
-			rev = model.charAt(i) + rev;
-		}
+		StringBuilder rev = new StringBuilder();
+		for (int i = 0; i < model.length(); i++)
+			rev.insert(0, model.charAt(i));
 		return rev.charAt(toDec(currentGen.substring(start, start + 3)));
 	}
 
