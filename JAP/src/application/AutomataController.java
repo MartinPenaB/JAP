@@ -1,11 +1,10 @@
 package application;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -34,7 +33,7 @@ public class AutomataController {
 	private boolean isEnglish = true;
 
 	CellularAutomata automata;
-	Stage mainStage;
+	Stage stage;
 
 	/**
 	 * Changes the language of the application.
@@ -52,8 +51,18 @@ public class AutomataController {
 		inputLabel.setText(modelLabelText);
 		setButton.setText(setButtonText);
 		languageMenuButton.setText(languageButtonText);
-		mainStage.setTitle(windowTitle);
+		stage.setTitle(windowTitle);
 		this.isEnglish = isEnglish;
+	}
+
+	void init(CellularAutomata automata, Stage stage) {
+		this.automata = automata;
+		this.stage = stage;
+		inputTextField.setTextFormatter(new TextFormatter<>(change -> {
+			if (change.isAdded() && change.getControlNewText().length() > 8)
+				return null;
+			return change;
+		}));
 	}
 
 	/**
@@ -78,29 +87,14 @@ public class AutomataController {
 	@FXML
 	public void updateModel() {
 		String model = inputTextField.getText();
-		if (model.matches("^[01]+$") && model.length()==8&&(modelValue = automata.toDec(model)) <= 255) {
+		if (model.matches("^[01]+$") && model.length() == 8 && (modelValue = automata.toDec(model)) <= 255) {
 			modelLabel.setText(isEnglish ? "Model: " + modelValue : "Modelo: " + modelValue);
 			automata.evolve(model);
 		} else {
-			showAlert(isEnglish ? "Invalid input" : "Entrada invalida",
-					isEnglish ? "Please enter a binary number (1 byte max, 8 digits)."
-							: "Por favor entre un numero en binario (1 byte maximo, 8 digitos).");
+			Project.showAlert(isEnglish ? "Invalid input" : "Entrada invalida",
+					isEnglish ? "Please enter a binary number (8 digits)."
+							: "Por favor entre un numero en binario (8 digitos).");
 		}
 	}
 
-	/**
-	 * Displays an alert dialog with the given header and content text.
-	 *
-	 * @param headerText  The header text for the alert.
-	 * @param contentText The content text for the alert.
-	 */
-	private void showAlert(String headerText, String contentText) {
-		new Alert(AlertType.WARNING) {
-			{
-				setHeaderText(headerText);
-				setContentText(contentText);
-				show();
-			}
-		};
-	}
 }

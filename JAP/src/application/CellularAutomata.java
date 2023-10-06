@@ -2,12 +2,6 @@ package application;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 /**
@@ -15,31 +9,8 @@ import javafx.util.Duration;
  */
 public class CellularAutomata extends Project {
 
-	/** The size of each cell in the grid. */
-	static final double CELL_SIZE = 3;
-
-	/** The width of the grid. */
-	static final int GRID_WIDTH = 203;
-
-	/** The height of the grid. */
-	static final int GRID_HEIGHT = 100;
-
 	/** Delay between adding cells in milliseconds */
-	static final int ANIMATION_DELAY_MS = 30;
-
-	/** The grid for displaying the cellular automaton. */
-	GridPane grid;
-
-	/**
-	 * Creates a grid for the cellular automaton and adds it to the specified scene.
-	 *
-	 * @param scene The scene to which the grid will be added.
-	 */
-	void makeGrid(Scene scene) {
-		grid = new GridPane();
-		initializeGrid('0');
-		addGridToScene(scene);
-	}
+	static final int ANIMATION_DELAY_MS = 10;
 
 	/**
 	 * Evolves the cellular automaton based on the given model.
@@ -102,15 +73,7 @@ public class CellularAutomata extends Project {
 		return model.replaceFirst("^0+", "");
 	}
 
-	/**
-	 * Adds the grid to the specified scene.
-	 *
-	 * @param scene The scene to which the grid will be added.
-	 */
-	void addGridToScene(Scene scene) {
-		grid.setAlignment(Pos.CENTER);
-		((BorderPane) scene.getRoot()).setCenter(grid);
-	}
+	
 
 	/**
 	 * Pads the model with '0' characters to match the GRID_WIDTH.
@@ -128,19 +91,7 @@ public class CellularAutomata extends Project {
 		}
 		return padded.toString();
 	}
-
-	/**
-	 * Toggles a cell in the grid based on its state (0 or 1).
-	 *
-	 * @param row   The row of the cell.
-	 * @param col   The column of the cell.
-	 * @param state The state of the cell ('0' or '1').
-	 */
-	void toggleCell(int row, int col, char state) {
-		Rectangle cell = new Rectangle(CELL_SIZE, CELL_SIZE, state == '0' ? Color.WHITESMOKE : Color.BLACK);
-		cell.setStroke(Color.WHITESMOKE);
-		grid.add(cell, col, row);
-	}
+	
 
 	/**
 	 * Converts a binary model to its decimal equivalent.
@@ -154,6 +105,15 @@ public class CellularAutomata extends Project {
 			dec += model.charAt(idx) == '1' ? Math.pow(2, pow) : 0;
 		return dec;
 	}
+	
+	@Override
+	String getFxml() {
+		return "CA.fxml";
+	}
+	@Override
+	String getTitle() {
+		return "Cellular Automata";
+	}
 
 	/**
 	 * Returns a string representation of the cellular automaton project.
@@ -164,9 +124,5 @@ public class CellularAutomata extends Project {
 		return "[A12] CA - Cellular Automata";
 	}
 
-	private void initializeGrid(char defaultState) {
-		for (int row = 0; row < GRID_HEIGHT; row++)
-			for (int col = 0; col < GRID_WIDTH; col++)
-				toggleCell(row, col, defaultState);
-	}
+	
 }

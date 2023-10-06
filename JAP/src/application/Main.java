@@ -21,7 +21,7 @@ public class Main extends Application {
 			Parent root = loader.load();
 
 			MainController controller = loader.getController();
-			controller.projectComboBox.getItems().addAll(new CellularAutomata());
+			controller.projectComboBox.getItems().addAll(new CellularAutomata(), new GameOfLife());
 
 			Scene scene = new Scene(root);
 
