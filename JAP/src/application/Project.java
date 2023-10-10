@@ -11,18 +11,27 @@ import javafx.scene.shape.Rectangle;
 
 public class Project {
 
+	/** default grid size */
+	static final double DEFAULT_SIZE = 3;
+
+	/** default grid width */
+	static final int DEFAULT_WIDTH = 203;
+
+	/** default grid height */
+	static final int DEFAULT_HEIGHT = 100;
+
 	/** The size of each cell in the grid. */
-	static final double CELL_SIZE = 3;
-	
+	double cellSize = DEFAULT_SIZE;
+
 	/** The width of the grid. */
-	static final int GRID_WIDTH = 203;
+	int gridWidth = DEFAULT_WIDTH;
 
 	/** The height of the grid. */
-	static final int GRID_HEIGHT = 100;
-	
+	int gridHeight = DEFAULT_HEIGHT;
+
 	/** The grid for displaying the cellular automaton. */
 	GridPane grid;
-	
+
 	/**
 	 * Creates a grid for the cellular automaton and adds it to the specified scene.
 	 *
@@ -33,14 +42,15 @@ public class Project {
 		initializeGrid('0');
 		addGridToScene(scene);
 	}
-	
+
 	String getFxml() {
 		return null;
 	}
+
 	String getTitle() {
 		return null;
 	}
-	
+
 	/**
 	 * Adds the grid to the specified scene.
 	 *
@@ -50,13 +60,13 @@ public class Project {
 		grid.setAlignment(Pos.CENTER);
 		((BorderPane) scene.getRoot()).setCenter(grid);
 	}
-	
+
 	void initializeGrid(char defaultState) {
-		for (int row = 0; row < GRID_HEIGHT; row++)
-			for (int col = 0; col < GRID_WIDTH; col++)
+		for (int row = 0; row < gridHeight; row++)
+			for (int col = 0; col < gridWidth; col++)
 				toggleCell(row, col, defaultState);
 	}
-	
+
 	/**
 	 * Toggles a cell in the grid based on its state (0 or 1).
 	 *
@@ -65,11 +75,11 @@ public class Project {
 	 * @param state The state of the cell ('0' or '1').
 	 */
 	void toggleCell(int row, int col, char state) {
-		Rectangle cell = new Rectangle(CELL_SIZE, CELL_SIZE, state == '0' ? Color.WHITESMOKE : Color.BLACK);
-		cell.setStroke(Color.GREY);
+		Rectangle cell = new Rectangle(cellSize, cellSize, state == '0' ? Color.WHITESMOKE : Color.BLACK);
+		cell.setStroke(Color.DARKGREY);
 		grid.add(cell, col, row);
 	}
-	
+
 	/**
 	 * Displays an alert dialog with the given header and content text.
 	 *
@@ -85,5 +95,5 @@ public class Project {
 			}
 		};
 	}
-	
+
 }

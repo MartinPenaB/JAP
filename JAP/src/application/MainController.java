@@ -41,31 +41,32 @@ public class MainController {
 	 */
 	@FXML
 	public void goToProject(ActionEvent event) throws IOException {
-		
+
 		Project project = projectComboBox.getValue();
-		
-		if(project==null) {
+
+		if (project == null) {
 			Project.showAlert("No project selected", "Please select a project.");
 			return;
 		}
-		
+
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(project.getFxml()));
 		Scene scene = new Scene(loader.load());
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		
-		if (project instanceof CellularAutomata ca)((AutomataController)loader.getController()).init(ca, stage);
-		
+
+		if (project instanceof CellularAutomata ca)
+			((AutomataController) loader.getController()).init(ca, stage);
+
 		project.makeGrid(scene);
 		addStyle(scene, "application.css");
 		projectStageSetup(stage, project.getTitle(), scene);
-		
+
 	}
-	
+
 	void addStyle(Scene scene, String cssFile) {
 		String css = getClass().getResource(cssFile).toExternalForm();
 		scene.getStylesheets().add(css);
 	}
-	
+
 	void projectStageSetup(Stage stage, String title, Scene scene) {
 		stage.setResizable(false);
 		stage.getIcons().add(new Image("/javaicon.png"));
@@ -73,7 +74,6 @@ public class MainController {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
 
 	/**
 	 * Opens the help window.

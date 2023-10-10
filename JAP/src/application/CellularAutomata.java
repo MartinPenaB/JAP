@@ -22,13 +22,13 @@ public class CellularAutomata extends Project {
 		String generation = pad("1");
 		Timeline timeline = new Timeline();
 
-		for (int gen = 0; gen < GRID_HEIGHT; gen++) {
+		for (int gen = 0; gen < gridHeight; gen++) {
 
 			String currGen = generation;
 			int genIdx = gen;
 
 			KeyFrame keyFrame = new KeyFrame(Duration.millis(ANIMATION_DELAY_MS * gen), event -> {
-				for (int cell = 0; cell < GRID_WIDTH; cell++)
+				for (int cell = 0; cell < gridWidth; cell++)
 					toggleCell(genIdx, cell, currGen.charAt(cell));
 			});
 
@@ -41,11 +41,15 @@ public class CellularAutomata extends Project {
 
 	}
 
-	char checkCells(int start, String currentGen, String model) {
+	String reverseString(String str) {
 		StringBuilder rev = new StringBuilder();
-		for (int i = 0; i < model.length(); i++)
-			rev.insert(0, model.charAt(i));
-		return rev.charAt(toDec(currentGen.substring(start, start + 3)));
+		for (int i = 0; i < str.length(); i++)
+			rev.insert(0, str.charAt(i));
+		return rev.toString();
+	}
+
+	char checkCells(int start, String currentGen, String model) {
+		return reverseString(model).charAt(toDec(currentGen.substring(start, start + 3)));
 	}
 
 	/**
@@ -63,17 +67,15 @@ public class CellularAutomata extends Project {
 		return nextGen.toString();
 	}
 
-	/**
-	 * Trims leading '0' characters from the model.
-	 *
-	 * @param model The model to be trimmed.
-	 * @return The trimmed model.
-	 */
-	String trimModel(String model) {
-		return model.replaceFirst("^0+", "");
-	}
-
-	
+//	/**
+//	 * Trims leading '0' characters from the model.
+//	 *
+//	 * @param model The model to be trimmed.
+//	 * @return The trimmed model.
+//	 */
+//	String trimModel(String model) {
+//		return model.replaceFirst("^0+", "");
+//	}
 
 	/**
 	 * Pads the model with '0' characters to match the GRID_WIDTH.
@@ -83,7 +85,7 @@ public class CellularAutomata extends Project {
 	 */
 	String pad(String model) {
 		StringBuilder padded = new StringBuilder(model);
-		while (padded.length() != GRID_WIDTH) {
+		while (padded.length() != gridWidth) {
 			if (padded.length() % 2 == 0)
 				padded.insert(0, '0');
 			else
@@ -91,7 +93,6 @@ public class CellularAutomata extends Project {
 		}
 		return padded.toString();
 	}
-	
 
 	/**
 	 * Converts a binary model to its decimal equivalent.
@@ -105,11 +106,12 @@ public class CellularAutomata extends Project {
 			dec += model.charAt(idx) == '1' ? Math.pow(2, pow) : 0;
 		return dec;
 	}
-	
+
 	@Override
 	String getFxml() {
 		return "CA.fxml";
 	}
+
 	@Override
 	String getTitle() {
 		return "Cellular Automata";
@@ -124,5 +126,4 @@ public class CellularAutomata extends Project {
 		return "[A12] CA - Cellular Automata";
 	}
 
-	
 }

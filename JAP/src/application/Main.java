@@ -27,7 +27,7 @@ public class Main extends Application {
 
 			String css = getClass().getResource("application.css").toExternalForm();
 			scene.getStylesheets().add(css);
-			
+
 			stage.setResizable(false);
 			stage.getIcons().add(new Image("/javaicon.png"));
 			stage.setTitle("[JAP - Computer Sciene]");
