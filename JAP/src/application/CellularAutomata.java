@@ -78,19 +78,18 @@ public class CellularAutomata extends Project {
 //	}
 
 	/**
-	 * Pads the model with '0' characters to match the GRID_WIDTH.
+	 * Pads the model with '0' characters to match the gridWidth.
 	 *
 	 * @param model The model to be padded.
 	 * @return The padded model.
 	 */
 	String pad(String model) {
 		StringBuilder padded = new StringBuilder(model);
-		while (padded.length() != gridWidth) {
+		while (padded.length() != gridWidth)
 			if (padded.length() % 2 == 0)
 				padded.insert(0, '0');
 			else
 				padded.append('0');
-		}
 		return padded.toString();
 	}
 
