@@ -1,13 +1,19 @@
 package application;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
-public class GameController {
+public class GameController extends Controller{
 
 	@FXML
-	private AnchorPane headerAnchorPane;
+	private Label execLabel;
 	@FXML
-	private AnchorPane footerAnchorPane;
+	private Button startButton;
+	
+	@FXML
+	public void start() {
+		
+	}
 
 }

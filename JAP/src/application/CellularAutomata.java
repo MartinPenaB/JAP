@@ -101,8 +101,8 @@ public class CellularAutomata extends Project {
 	 */
 	int toDec(String model) {
 		int dec = 0;
-		for (int pow = model.length() - 1, idx = 0; pow >= 0; pow--, idx++)
-			dec += model.charAt(idx) == '1' ? Math.pow(2, pow) : 0;
+		for (int pow = model.length() - 1, digit = 0; pow >= 0; pow--, digit++)
+			dec += model.charAt(digit) == '1' ? Math.pow(2, pow) : 0;
 		return dec;
 	}
 

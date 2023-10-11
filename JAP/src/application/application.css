@@ -15,7 +15,7 @@ AnchorPane {
     -fx-background-color: #2c3e50;
 }
 
-#modelLabel {
+#modelLabel,#execLabel {
 	-fx-font-weight: bold;
     -fx-border-color: darkgray;
     -fx-border-width: 1.0px; 
@@ -23,7 +23,7 @@ AnchorPane {
     -fx-padding: 3.0px 8.0px;
 }
 
-#modelLabel, #inputLabel{
+#modelLabel,#execLabel, #inputLabel{
 	-fx-text-fill: white;
 }
 

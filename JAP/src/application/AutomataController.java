@@ -3,27 +3,17 @@ package application;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
  * The controller class for the Cellular Automata.
  */
-public class AutomataController {
+public class AutomataController extends Controller{
 
 	@FXML
-	private AnchorPane headerAnchorPane;
-	@FXML
-	private AnchorPane footerAnchorPane;
-	@FXML
-	private TextField inputTextField;
-	@FXML
 	private Label modelLabel;
-	@FXML
-	private Label inputLabel;
 	@FXML
 	private Button setButton;
 	@FXML

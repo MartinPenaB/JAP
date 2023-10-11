@@ -1,6 +1,8 @@
 package application;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -77,6 +79,7 @@ public class Project {
 	void toggleCell(int row, int col, char state) {
 		Rectangle cell = new Rectangle(cellSize, cellSize, state == '0' ? Color.WHITESMOKE : Color.BLACK);
 		cell.setStroke(Color.DARKGREY);
+		GridPane.setConstraints(cell, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
 		grid.add(cell, col, row);
 	}
 

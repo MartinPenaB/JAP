@@ -3,11 +3,8 @@ package application;
 public class GameOfLife extends Project {
 	
 	{
-//		gridWidth = 191;
-//		gridHeight = 95;
-		gridWidth = 131;
-		gridHeight = 65;
-		cellSize=4;
+		gridWidth = 191;
+		gridHeight = 95;
 	}
 
 	@Override
