@@ -11,7 +11,7 @@ import javafx.scene.shape.Rectangle;
 
 public class Project {
 
-	/** default grid size */
+	/** default grid cell size */
 	static final double DEFAULT_SIZE = 3;
 
 	/** default grid width */
