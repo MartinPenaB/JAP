@@ -16,9 +16,15 @@ public class GameOfLife extends Project {
 	String getTitle() {
 		return "Game of Life";
 	}
-
+	@Override
 	public String toString() {
 		return "[A22] GL - Game of Life";
+	}
+
+	@Override
+	void evolve(String rule) {
+		
+		
 	}
 
 }

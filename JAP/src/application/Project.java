@@ -11,27 +11,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class Project {
+public abstract class Project {
 
-	/** default grid cell size */
-	static final double DEFAULT_SIZE = 3;
+	static final double DEFAULT_CELL_SIZE = 3;
+	static final int DEFAULT_GRID_WIDTH = 203;
+	static final int DEFAULT_GRID_HEIGHT = 100;
 
-	/** default grid width */
-	static final int DEFAULT_WIDTH = 203;
+	double cellSize = DEFAULT_CELL_SIZE;
+	int gridWidth = DEFAULT_GRID_WIDTH;
+	int gridHeight = DEFAULT_GRID_HEIGHT;
 
-	/** default grid height */
-	static final int DEFAULT_HEIGHT = 100;
-
-	/** The size of each cell in the grid. */
-	double cellSize = DEFAULT_SIZE;
-
-	/** The width of the grid. */
-	int gridWidth = DEFAULT_WIDTH;
-
-	/** The height of the grid. */
-	int gridHeight = DEFAULT_HEIGHT;
-
-	/** The grid for displaying the cellular automaton. */
 	GridPane grid;
 
 	/**
@@ -43,14 +32,6 @@ public class Project {
 		grid = new GridPane();
 		initializeGrid('0');
 		addGridToScene(scene);
-	}
-
-	String getFxml() {
-		return null;
-	}
-
-	String getTitle() {
-		return null;
 	}
 
 	/**
@@ -98,5 +79,11 @@ public class Project {
 			}
 		};
 	}
+	
+	abstract String getFxml();
+
+	abstract String getTitle();
+	
+	abstract void evolve(String rule);
 
 }

@@ -8,21 +8,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
  * The main controller class for the application.
  */
-public class MainController {
+public class MainController extends GeneralController<Project> {
+
 
 	@FXML
-	public ComboBox<Project> projectComboBox;
-	@FXML
-	private AnchorPane mainAnchorPane;
-
+    public void initialize() {
+        initDictionary();
+    }
+	
+	
 	/**
 	 * Navigates to the main window.
 	 *
@@ -39,8 +39,9 @@ public class MainController {
 	 * @param event The ActionEvent triggered by the button click.
 	 * @throws IOException If an I/O error occurs.
 	 */
-	@FXML
-	public void goToProject(ActionEvent event) throws IOException {
+	@SuppressWarnings("unchecked")
+	@Override
+	public void start(ActionEvent event) throws IOException {
 
 		Project project = projectComboBox.getValue();
 
@@ -52,13 +53,10 @@ public class MainController {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(project.getFxml()));
 		Scene scene = new Scene(loader.load());
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-		if (project instanceof CellularAutomata ca)
-			((AutomataController) loader.getController()).init(ca, stage);
-
+		((GeneralController<Project>)loader.getController()).initRequiredData(project, stage);
 		project.makeGrid(scene);
 		addStyle(scene, "application.css");
-		projectStageSetup(stage, project.getTitle(), scene);
+		projectStageSetup(stage, scene);
 
 	}
 
@@ -67,10 +65,9 @@ public class MainController {
 		scene.getStylesheets().add(css);
 	}
 
-	void projectStageSetup(Stage stage, String title, Scene scene) {
+	void projectStageSetup(Stage stage, Scene scene) {
 		stage.setResizable(false);
 		stage.getIcons().add(new Image("/javaicon.png"));
-		stage.setTitle(title);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -97,6 +94,16 @@ public class MainController {
 	@FXML
 	public void quitApplication() {
 		((Stage) mainAnchorPane.getScene().getWindow()).close();
+	}
+
+
+	@Override
+	void setLanguage() {
+		projectComboBox.setPromptText(translate("Select a project", inSpanish));
+		languageMenuButton.setText(translate("Language", inSpanish));
+		languageMenuButton.getItems().forEach((item)->{item.setText(translate(item.getText(), inSpanish));});
+		closeButton.setText(translate("Close", inSpanish));
+		helpButton.setText(translate("Help", inSpanish));
 	}
 
 }

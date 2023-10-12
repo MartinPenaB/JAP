@@ -17,6 +17,7 @@ public class CellularAutomata extends Project {
 	 *
 	 * @param rule The model of the cellular automaton.
 	 */
+	@Override
 	void evolve(String rule) {
 
 		String generation = pad("1");
@@ -67,15 +68,6 @@ public class CellularAutomata extends Project {
 		return nextGen.toString();
 	}
 
-//	/**
-//	 * Trims leading '0' characters from the model.
-//	 *
-//	 * @param model The model to be trimmed.
-//	 * @return The trimmed model.
-//	 */
-//	String trimModel(String model) {
-//		return model.replaceFirst("^0+", "");
-//	}
 
 	/**
 	 * Pads the model with '0' characters to match the gridWidth.
@@ -121,6 +113,7 @@ public class CellularAutomata extends Project {
 	 *
 	 * @return A string describing the project.
 	 */
+	@Override
 	public String toString() {
 		return "[A12] CA - Cellular Automata";
 	}

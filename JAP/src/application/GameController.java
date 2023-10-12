@@ -1,19 +1,28 @@
 package application;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 
-public class GameController extends Controller{
+public class GameController extends GeneralController<GameOfLife>{
 
-	@FXML
-	private Label execLabel;
-	@FXML
-	private Button startButton;
 	
 	@FXML
-	public void start() {
+    public void initialize() {
+        setInputLimit(18);
+        initDictionary();
+    }
+	
+	@Override
+	public void start(ActionEvent event) {
 		
+		
+	}
+
+	@Override
+	void setLanguage() {
+		inputLabel.setText(translate("Model", inSpanish) + ":");
+		startButton.setText(translate("Start", inSpanish));
+		stage.setTitle(translate(project.getTitle(), inSpanish));
 	}
 
 }

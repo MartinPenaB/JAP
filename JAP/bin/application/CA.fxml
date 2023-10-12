@@ -25,16 +25,10 @@
 	<bottom>
 		<AnchorPane fx:id="footerAnchorPane" prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
 			<children>
-				<MenuButton fx:id="languageMenuButton" layoutX="165.0" layoutY="10.0" mnemonicParsing="false" text="Language">
-					<items>
-						<MenuItem mnemonicParsing="false" onAction="#switchToEnglish" text="English" />
-						<MenuItem mnemonicParsing="false" onAction="#switchToSpanish" text="Spanish" />
-					</items>
-				</MenuButton>
-				<Label fx:id="inputLabel" layoutX="285.0" layoutY="15.0" text="Model:" />
-				<Label fx:id="modelLabel" layoutX="560.0" layoutY="10.0" text="Model: 0" />
-				<TextField fx:id="inputTextField" layoutX="335.0" layoutY="10.0" />
-				<Button fx:id="setButton" layoutX="490.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateModel" text="Set" />
+				<Label fx:id="inputLabel" layoutX="205.0" layoutY="15.0" text="Model:" />
+				<Label fx:id="infoLabel" layoutX="480.0" layoutY="12.0" text="Model: 0" />
+				<TextField fx:id="inputTextField" layoutX="255.0" layoutY="12.0" />
+				<Button fx:id="startButton" layoutX="410.0" layoutY="11.0" mnemonicParsing="false" onAction="#start" text="Set" />
 			</children>
 		</AnchorPane>
 	</bottom>
