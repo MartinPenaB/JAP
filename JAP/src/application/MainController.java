@@ -49,7 +49,6 @@ public class MainController extends GeneralController<Project> {
 			Project.showAlert("No project selected", "Please select a project.");
 			return;
 		}
-
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(project.getFxml()));
 		Scene scene = new Scene(loader.load());
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
