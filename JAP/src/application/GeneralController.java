@@ -15,8 +15,8 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public abstract class GeneralController <T>{
-	
+public abstract class GeneralController<T> {
+
 	@FXML
 	protected AnchorPane headerAnchorPane;
 	@FXML
@@ -39,19 +39,20 @@ public abstract class GeneralController <T>{
 	protected ComboBox<Project> projectComboBox;
 	@FXML
 	protected AnchorPane mainAnchorPane;
-	
+
 	T project;
 	Stage stage;
-	
+
 	Map<String, String> dictionary = new HashMap<>();
 	static boolean inSpanish = false;
-	
-	void initRequiredData(T project, Stage stage) {
+
+	void setRequiredData(T project, Stage stage) {
 		this.project = project;
 		this.stage = stage;
+		initDictionary();
 		setLanguage();
 	}
-	
+
 	void initDictionary() {
 		dictionary.put("Select a project", "Elija un projecto");
 		dictionary.put("English", "Ingles");
@@ -66,9 +67,10 @@ public abstract class GeneralController <T>{
 		dictionary.put("Game of Life", "Juego de la Vida");
 		dictionary.put("Invalid input", "Entrada invalida");
 		dictionary.put("Please enter a binary number (8 digits).", "Por favor entre un numero en binario (8 digitos).");
-		dictionary.put("Please enter a binary number (18 digits).", "Por favor entre un numero en binario (18 digitos).");
+		dictionary.put("Please enter a binary number (18 digits).",
+				"Por favor entre un numero en binario (18 digitos).");
 	}
-	
+
 	@FXML
 	public void switchToEnglish() {
 		inSpanish = false;
@@ -80,19 +82,20 @@ public abstract class GeneralController <T>{
 		inSpanish = true;
 		setLanguage();
 	}
-	
+
 	String translate(String str, boolean inSpanish) {
 		return inSpanish ? dictionary.get(str) : str;
 	}
-	
-	void setInputLimit(int inputLimit){
+
+	void setInputLimit(int inputLimit) {
 		inputTextField.setTextFormatter(new TextFormatter<>(change -> {
-			return change.isAdded() && change.getControlNewText().length() > inputLimit? null : change;
+			return change.isAdded() && change.getControlNewText().length() > inputLimit ? null : change;
 		}));
 	}
-	
+
 	@FXML
 	public abstract void start(ActionEvent event) throws IOException;
+
 	abstract void setLanguage();
 
 }

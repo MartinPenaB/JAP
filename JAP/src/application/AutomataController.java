@@ -9,17 +9,16 @@ import javafx.fxml.FXML;
 public class AutomataController extends GeneralController<CellularAutomata> {
 
 	private int modelValue = 0;
-	
+
 	String modelLabel;
 	String alertHeaderText;
 	String alertContentText;
-	
+
 	@FXML
-    public void initialize() {
-        setInputLimit(8);
-        initDictionary();
-    }
-	
+	public void initialize() {
+		setInputLimit(8);
+	}
+
 	@Override
 	void setLanguage() {
 		modelLabel = translate("Model", inSpanish);
@@ -27,10 +26,9 @@ public class AutomataController extends GeneralController<CellularAutomata> {
 		inputLabel.setText(modelLabel + ":");
 		startButton.setText(translate("Set", inSpanish));
 		stage.setTitle(translate(project.getTitle(), inSpanish));
-		alertHeaderText=translate("Invalid input", inSpanish);
-		alertContentText=translate("Please enter a binary number (8 digits).", inSpanish);
+		alertHeaderText = translate("Invalid input", inSpanish);
+		alertContentText = translate("Please enter a binary number (8 digits).", inSpanish);
 	}
-
 
 	@Override
 	public void start(ActionEvent event) {
@@ -39,7 +37,7 @@ public class AutomataController extends GeneralController<CellularAutomata> {
 			infoLabel.setText(modelLabel + ": " + modelValue);
 			project.evolve(model);
 		} else
-			Project.showAlert(alertHeaderText,alertContentText);
+			Project.showAlert(alertHeaderText, alertContentText);
 	}
 
 }

@@ -6,20 +6,21 @@ import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public abstract class Project {
-
-	static final double DEFAULT_CELL_SIZE = 3;
-	static final int DEFAULT_GRID_WIDTH = 203;
-	static final int DEFAULT_GRID_HEIGHT = 100;
-
-	double cellSize = DEFAULT_CELL_SIZE;
+	
+	static final int DEFAULT_GRID_WIDTH = 69;
+	static final int DEFAULT_GRID_HEIGHT = 35;
+	static final double DEFAULT_CELL_SIZE = 10;
+	
 	int gridWidth = DEFAULT_GRID_WIDTH;
 	int gridHeight = DEFAULT_GRID_HEIGHT;
+	double cellSize = DEFAULT_CELL_SIZE;
 
 	GridPane grid;
 
@@ -28,9 +29,9 @@ public abstract class Project {
 	 *
 	 * @param scene The scene to which the grid will be added.
 	 */
-	void makeGrid(Scene scene) {
+	void makeGrid(Scene scene, Project project) {
 		grid = new GridPane();
-		initializeGrid('0');
+		initializeGrid('0', project instanceof GameOfLife);
 		addGridToScene(scene);
 	}
 
@@ -41,15 +42,31 @@ public abstract class Project {
 	 */
 	void addGridToScene(Scene scene) {
 		grid.setAlignment(Pos.CENTER);
+		grid.setGridLinesVisible(true);
 		((BorderPane) scene.getRoot()).setCenter(grid);
 	}
 
-	void initializeGrid(char defaultState) {
+	void initializeGrid(char defaultState, boolean allowInteraction) {
 		for (int row = 0; row < gridHeight; row++)
 			for (int col = 0; col < gridWidth; col++)
-				toggleCell(row, col, defaultState);
+				addCell(row, col, defaultState, allowInteraction);
 	}
 
+	
+	void addCell(int row, int col, char state, boolean allowInteraction) {
+		Rectangle cell = new Rectangle(cellSize, cellSize, state == '0' ? Color.WHITESMOKE : Color.BLACK);
+		cell.setStroke(Color.DARKGREY);
+		GridPane.setConstraints(cell, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
+		
+		if(allowInteraction)
+			cell.setOnMouseClicked(event -> {
+			    if (event.getButton() == MouseButton.PRIMARY)
+			    	cell.setFill(cell.getFill().equals(Color.WHITESMOKE) ? Color.BLACK : Color.WHITESMOKE);
+			});
+
+		grid.add(cell, col, row);
+	}
+	
 	/**
 	 * Toggles a cell in the grid based on its state (0 or 1).
 	 *
@@ -58,10 +75,8 @@ public abstract class Project {
 	 * @param state The state of the cell ('0' or '1').
 	 */
 	void toggleCell(int row, int col, char state) {
-		Rectangle cell = new Rectangle(cellSize, cellSize, state == '0' ? Color.WHITESMOKE : Color.BLACK);
-		cell.setStroke(Color.DARKGREY);
-		GridPane.setConstraints(cell, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
-		grid.add(cell, col, row);
+		Rectangle cell = (Rectangle) grid.getChildren().get(row * gridWidth + col);
+		cell.setFill(state == '0' ? Color.WHITESMOKE : Color.BLACK);
 	}
 
 	/**
@@ -79,11 +94,11 @@ public abstract class Project {
 			}
 		};
 	}
-	
+
 	abstract String getFxml();
 
 	abstract String getTitle();
-	
+
 	abstract void evolve(String rule);
 
 }

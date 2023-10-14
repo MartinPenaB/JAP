@@ -22,7 +22,7 @@ public class Main extends Application {
 
 			MainController controller = loader.getController();
 			controller.projectComboBox.getItems().addAll(new CellularAutomata(), new GameOfLife());
-
+			controller.setRequiredData(null, stage);
 			Scene scene = new Scene(root);
 
 			String css = getClass().getResource("application.css").toExternalForm();

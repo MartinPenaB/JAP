@@ -1,11 +1,6 @@
 package application;
 
 public class GameOfLife extends Project {
-	
-	{
-		gridWidth = 191;
-		gridHeight = 95;
-	}
 
 	@Override
 	String getFxml() {
@@ -16,6 +11,7 @@ public class GameOfLife extends Project {
 	String getTitle() {
 		return "Game of Life";
 	}
+
 	@Override
 	public String toString() {
 		return "[A22] GL - Game of Life";
@@ -23,7 +19,6 @@ public class GameOfLife extends Project {
 
 	@Override
 	void evolve(String rule) {
-		
 		
 	}
 

@@ -12,6 +12,11 @@ public class CellularAutomata extends Project {
 	/** Delay between adding cells in milliseconds */
 	static final int ANIMATION_DELAY_MS = 10;
 
+	{
+		gridWidth = 203;
+		gridHeight = 100;
+		cellSize=3;
+	}
 	/**
 	 * Evolves the cellular automaton based on the given model.
 	 *
@@ -67,7 +72,6 @@ public class CellularAutomata extends Project {
 			nextGen.append(checkCells(i, currentGen, rule));
 		return nextGen.toString();
 	}
-
 
 	/**
 	 * Pads the model with '0' characters to match the gridWidth.
