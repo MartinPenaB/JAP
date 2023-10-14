@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 
 public class Main extends Application {
 
+	static Scene mainScene;
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -20,10 +22,11 @@ public class Main extends Application {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
 			Parent root = loader.load();
 
-			MainController controller = loader.getController();
+			MainWindowController controller = loader.getController();
 			controller.projectComboBox.getItems().addAll(new CellularAutomata(), new GameOfLife());
-			controller.setRequiredData(null, stage);
+
 			Scene scene = new Scene(root);
+			mainScene = scene;
 
 			String css = getClass().getResource("application.css").toExternalForm();
 			scene.getStylesheets().add(css);

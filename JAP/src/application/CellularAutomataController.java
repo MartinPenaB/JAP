@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 /**
  * The controller class for the Cellular Automata.
  */
-public class AutomataController extends GeneralController<CellularAutomata> {
+public class CellularAutomataController extends GeneralController<CellularAutomata> {
 
 	private int modelValue = 0;
 

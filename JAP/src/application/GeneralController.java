@@ -52,11 +52,11 @@ public abstract class GeneralController<T> {
 	void setRequiredData(T project, Stage stage) {
 		this.project = project;
 		this.stage = stage;
-		initDictionary();
+		setDictionary();
 		setLanguage();
 	}
 
-	void initDictionary() {
+	void setDictionary() {
 		dictionary.put("Select a project", "Elija un projecto");
 		dictionary.put("English", "Ingles");
 		dictionary.put("Back", "Atras");
@@ -96,7 +96,7 @@ public abstract class GeneralController<T> {
 			return change.isAdded() && change.getControlNewText().length() > inputLimit ? null : change;
 		}));
 	}
-	
+
 	/**
 	 * Navigates to the main window.
 	 *
@@ -104,7 +104,7 @@ public abstract class GeneralController<T> {
 	 */
 	@FXML
 	public void goToMain(ActionEvent event) {
-		new Main().start((Stage) ((Node) event.getSource()).getScene().getWindow());
+		((Stage) ((Node) event.getSource()).getScene().getWindow()).setScene(Main.mainScene);
 	}
 
 	@FXML

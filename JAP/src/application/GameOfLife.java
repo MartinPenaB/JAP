@@ -19,7 +19,7 @@ public class GameOfLife extends Project {
 
 	@Override
 	void evolve(String rule) {
-		
+
 	}
 
 }

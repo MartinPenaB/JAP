@@ -13,16 +13,23 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public abstract class Project {
-	
+
 	static final int DEFAULT_GRID_WIDTH = 69;
 	static final int DEFAULT_GRID_HEIGHT = 35;
 	static final double DEFAULT_CELL_SIZE = 10;
-	
+
 	int gridWidth = DEFAULT_GRID_WIDTH;
 	int gridHeight = DEFAULT_GRID_HEIGHT;
 	double cellSize = DEFAULT_CELL_SIZE;
 
 	GridPane grid;
+	Scene scene;
+	GeneralController<Project> controller;
+
+	void setRequiredData(Scene scene, GeneralController<Project> controller) {
+		this.scene = scene;
+		this.controller = controller;
+	}
 
 	/**
 	 * Creates a grid for the cellular automaton and adds it to the specified scene.
@@ -52,21 +59,20 @@ public abstract class Project {
 				addCell(row, col, defaultState, allowInteraction);
 	}
 
-	
 	void addCell(int row, int col, char state, boolean allowInteraction) {
 		Rectangle cell = new Rectangle(cellSize, cellSize, state == '0' ? Color.WHITESMOKE : Color.BLACK);
 		cell.setStroke(Color.DARKGREY);
 		GridPane.setConstraints(cell, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
-		
-		if(allowInteraction)
+
+		if (allowInteraction)
 			cell.setOnMouseClicked(event -> {
-			    if (event.getButton() == MouseButton.PRIMARY)
-			    	cell.setFill(cell.getFill().equals(Color.WHITESMOKE) ? Color.BLACK : Color.WHITESMOKE);
+				if (event.getButton() == MouseButton.PRIMARY)
+					cell.setFill(cell.getFill().equals(Color.WHITESMOKE) ? Color.BLACK : Color.WHITESMOKE);
 			});
 
 		grid.add(cell, col, row);
 	}
-	
+
 	/**
 	 * Toggles a cell in the grid based on its state (0 or 1).
 	 *

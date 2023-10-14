@@ -14,11 +14,11 @@ import javafx.stage.Stage;
 /**
  * The main controller class for the application.
  */
-public class MainController extends GeneralController<Project> {
+public class MainWindowController extends GeneralController<Project> {
 
 	@FXML
 	public void initialize() {
-		initDictionary();
+		setDictionary();
 	}
 
 	/**
@@ -27,7 +27,6 @@ public class MainController extends GeneralController<Project> {
 	 * @param event The ActionEvent triggered by the button click.
 	 * @throws IOException If an I/O error occurs.
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void start(ActionEvent event) throws IOException {
 
@@ -38,10 +37,19 @@ public class MainController extends GeneralController<Project> {
 			return;
 		}
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource(project.getFxml()));
-		Scene scene = new Scene(loader.load());
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		((GeneralController<Project>) loader.getController()).setRequiredData(project, stage);
+		Scene scene = project.scene;
+		if (scene != null) {
+			stage.setScene(scene);
+			project.controller.setLanguage();
+			return;
+		}
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(project.getFxml()));
+		scene = new Scene(loader.load());
+		GeneralController<Project> controller = loader.getController();
+		controller.setRequiredData(project, stage);
+		project.setRequiredData(scene, controller);
 		project.makeGrid(scene, project);
 		addStyle(scene, "application.css");
 		projectStageSetup(stage, scene);

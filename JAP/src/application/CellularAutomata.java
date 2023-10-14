@@ -15,8 +15,9 @@ public class CellularAutomata extends Project {
 	{
 		gridWidth = 203;
 		gridHeight = 100;
-		cellSize=3;
+		cellSize = 3;
 	}
+
 	/**
 	 * Evolves the cellular automaton based on the given model.
 	 *

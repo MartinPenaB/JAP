@@ -3,7 +3,7 @@ package application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class GameController extends GeneralController<GameOfLife> {
+public class GameOfLifeController extends GeneralController<GameOfLife> {
 
 	@FXML
 	public void initialize() {
@@ -20,9 +20,7 @@ public class GameController extends GeneralController<GameOfLife> {
 
 	@Override
 	public void start(ActionEvent event) {
-		
-		
+
 	}
-	
 
 }
