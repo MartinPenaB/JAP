@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -32,6 +33,8 @@ public abstract class GeneralController<T> {
 	@FXML
 	protected Button helpButton;
 	@FXML
+	protected Button backButton;
+	@FXML
 	protected Label infoLabel;
 	@FXML
 	protected MenuButton languageMenuButton;
@@ -56,6 +59,7 @@ public abstract class GeneralController<T> {
 	void initDictionary() {
 		dictionary.put("Select a project", "Elija un projecto");
 		dictionary.put("English", "Ingles");
+		dictionary.put("Back", "Atras");
 		dictionary.put("Spanish", "Espanol");
 		dictionary.put("Close", "Cerrar");
 		dictionary.put("Help", "Ayuda");
@@ -91,6 +95,16 @@ public abstract class GeneralController<T> {
 		inputTextField.setTextFormatter(new TextFormatter<>(change -> {
 			return change.isAdded() && change.getControlNewText().length() > inputLimit ? null : change;
 		}));
+	}
+	
+	/**
+	 * Navigates to the main window.
+	 *
+	 * @param event The ActionEvent triggered by the button click.
+	 */
+	@FXML
+	public void goToMain(ActionEvent event) {
+		new Main().start((Stage) ((Node) event.getSource()).getScene().getWindow());
 	}
 
 	@FXML

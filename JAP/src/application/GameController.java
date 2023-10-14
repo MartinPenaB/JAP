@@ -15,6 +15,7 @@ public class GameController extends GeneralController<GameOfLife> {
 		inputLabel.setText(translate("Model", inSpanish) + ":");
 		startButton.setText(translate("Start", inSpanish));
 		stage.setTitle(translate(project.getTitle(), inSpanish));
+		backButton.setText(translate("Back", inSpanish));
 	}
 
 	@Override

@@ -22,16 +22,6 @@ public class MainController extends GeneralController<Project> {
 	}
 
 	/**
-	 * Navigates to the main window.
-	 *
-	 * @param event The ActionEvent triggered by the button click.
-	 */
-	@FXML
-	public void goToMain(ActionEvent event) {
-		new Main().start((Stage) ((Node) event.getSource()).getScene().getWindow());
-	}
-
-	/**
 	 * Navigates to a project window.
 	 *
 	 * @param event The ActionEvent triggered by the button click.

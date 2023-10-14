@@ -28,6 +28,7 @@ public class AutomataController extends GeneralController<CellularAutomata> {
 		stage.setTitle(translate(project.getTitle(), inSpanish));
 		alertHeaderText = translate("Invalid input", inSpanish);
 		alertContentText = translate("Please enter a binary number (8 digits).", inSpanish);
+		backButton.setText(translate("Back", inSpanish));
 	}
 
 	@Override
