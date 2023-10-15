@@ -10,7 +10,7 @@ import javafx.util.Duration;
 public class CellularAutomata extends Project {
 
 	/** Delay between adding cells in milliseconds */
-	static final int ANIMATION_DELAY_MS = 10;
+	static final float ANIMATION_DELAY_MS = 10f;
 
 	{
 		gridWidth = 203;
@@ -23,7 +23,6 @@ public class CellularAutomata extends Project {
 	 *
 	 * @param rule The model of the cellular automaton.
 	 */
-	@Override
 	void evolve(String rule) {
 
 		String generation = pad("1");

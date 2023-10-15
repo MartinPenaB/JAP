@@ -72,6 +72,12 @@ public abstract class Project {
 
 		grid.add(cell, col, row);
 	}
+	
+	Rectangle getCell(int row, int col) {
+		if(row>-1 && row<gridHeight && col >-1 && col<gridWidth)
+			return (Rectangle)grid.getChildren().get(row * gridWidth + col);
+		throw new IndexOutOfBoundsException("Invalid row or column index in getCell");
+	}
 
 	/**
 	 * Toggles a cell in the grid based on its state (0 or 1).
@@ -81,10 +87,14 @@ public abstract class Project {
 	 * @param state The state of the cell ('0' or '1').
 	 */
 	void toggleCell(int row, int col, char state) {
-		Rectangle cell = (Rectangle) grid.getChildren().get(row * gridWidth + col);
-		cell.setFill(state == '0' ? Color.WHITESMOKE : Color.BLACK);
+		getCell(row, col).setFill(state == '0' ? Color.WHITESMOKE : Color.BLACK);
 	}
 
+	void clearGrid() {
+		for (int row = 0; row < gridHeight; row++)
+			for (int col = 0; col < gridWidth; col++)
+				toggleCell(row, col, '0');
+	}
 	/**
 	 * Displays an alert dialog with the given header and content text.
 	 *
@@ -104,7 +114,5 @@ public abstract class Project {
 	abstract String getFxml();
 
 	abstract String getTitle();
-
-	abstract void evolve(String rule);
 
 }

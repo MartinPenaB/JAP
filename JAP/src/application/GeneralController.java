@@ -35,6 +35,12 @@ public abstract class GeneralController<T> {
 	@FXML
 	protected Button backButton;
 	@FXML
+	protected Button stopButton;
+	@FXML
+	protected Button clearButton;
+	@FXML
+	protected Button resetButton;
+	@FXML
 	protected Label infoLabel;
 	@FXML
 	protected MenuButton languageMenuButton;
@@ -43,6 +49,9 @@ public abstract class GeneralController<T> {
 	@FXML
 	protected AnchorPane mainAnchorPane;
 
+	String alertHeaderText;
+	String alertContentText;
+	
 	T project;
 	Stage stage;
 
@@ -60,6 +69,10 @@ public abstract class GeneralController<T> {
 		dictionary.put("Select a project", "Elija un projecto");
 		dictionary.put("English", "Ingles");
 		dictionary.put("Back", "Atras");
+		dictionary.put("Stop", "Parar");
+		dictionary.put("Reset", "Resetear");
+		dictionary.put("Clear", "Borrar");
+		dictionary.put("Iterations", "Iteraciones");
 		dictionary.put("Spanish", "Espanol");
 		dictionary.put("Close", "Cerrar");
 		dictionary.put("Help", "Ayuda");
@@ -71,6 +84,7 @@ public abstract class GeneralController<T> {
 		dictionary.put("Game of Life", "Juego de la Vida");
 		dictionary.put("Invalid input", "Entrada invalida");
 		dictionary.put("Please enter a binary number (8 digits).", "Por favor entre un numero en binario (8 digitos).");
+		dictionary.put("Please enter a positive integer.", "Por favor entre un numero entero positivo.");
 		dictionary.put("Please enter a binary number (18 digits).",
 				"Por favor entre un numero en binario (18 digitos).");
 	}

@@ -11,8 +11,6 @@ public class CellularAutomataController extends GeneralController<CellularAutoma
 	private int modelValue = 0;
 
 	String modelLabel;
-	String alertHeaderText;
-	String alertContentText;
 
 	@FXML
 	public void initialize() {

@@ -96,9 +96,7 @@ public class MainWindowController extends GeneralController<Project> {
 	void setLanguage() {
 		projectComboBox.setPromptText(translate("Select a project", inSpanish));
 		languageMenuButton.setText(translate("Language", inSpanish));
-		languageMenuButton.getItems().forEach((item) -> {
-			item.setText(translate(item.getText(), inSpanish));
-		});
+		languageMenuButton.getItems().forEach(item -> item.setText(translate(item.getText(), inSpanish)));
 		closeButton.setText(translate("Close", inSpanish));
 		helpButton.setText(translate("Help", inSpanish));
 	}
