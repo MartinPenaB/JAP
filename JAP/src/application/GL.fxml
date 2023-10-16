@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
@@ -13,7 +14,7 @@
 			<children>
 				<ImageView fitHeight="65.0" fitWidth="350.0" layoutX="210.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
 					<image>
-						
+						<Image url="@../ca.png" />
 					</image>
 				</ImageView>
 			</children>
@@ -24,7 +25,7 @@
 			<children>
 				<Button fx:id="backButton" layoutX="5.0" layoutY="11.0" mnemonicParsing="false" onAction="#goToMain" text="Back" />
 				<Button fx:id="stopButton" layoutX="230.0" layoutY="11.0" mnemonicParsing="false" onAction="#stop" text="Stop" />
-				<Button fx:id="resetButton" layoutX="550.0" layoutY="11.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
+				<Button fx:id="resetButton" layoutX="560.0" layoutY="11.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
 				<Button fx:id="clearButton" layoutX="170.0" layoutY="11.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
 				<Label fx:id="inputLabel" layoutX="290.0" layoutY="15.0" text="Iterations:" />
 				<Label fx:id="infoLabel" layoutX="480.0" layoutY="12.0" text="Exec: 0" />

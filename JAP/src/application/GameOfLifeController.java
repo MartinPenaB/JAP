@@ -54,6 +54,7 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 				timeline.getKeyFrames().clear();
 				running = true;
 				saveGridState();
+				
 				for (int exec = 0; exec <= iterations; exec++) {
 					int iteration = exec;
 					KeyFrame keyFrame = new KeyFrame(Duration.millis(GameOfLife.ANIMATION_DELAY_MS * exec), e -> {
@@ -78,7 +79,6 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 	void reset() {
 		running = false;
 		timeline.stop();
-		timeline.getKeyFrames().clear();
 		infoLabel.setText("Exce: 0");
 		startButton.setDisable(false);
 		if (snapshot != null)

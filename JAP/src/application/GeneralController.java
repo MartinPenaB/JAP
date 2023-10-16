@@ -51,7 +51,7 @@ public abstract class GeneralController<T> {
 
 	String alertHeaderText;
 	String alertContentText;
-	
+
 	T project;
 	Stage stage;
 
@@ -85,8 +85,6 @@ public abstract class GeneralController<T> {
 		dictionary.put("Invalid input", "Entrada invalida");
 		dictionary.put("Please enter a binary number (8 digits).", "Por favor entre un numero en binario (8 digitos).");
 		dictionary.put("Please enter a positive integer.", "Por favor entre un numero entero positivo.");
-		dictionary.put("Please enter a binary number (18 digits).",
-				"Por favor entre un numero en binario (18 digitos).");
 	}
 
 	@FXML
@@ -106,9 +104,8 @@ public abstract class GeneralController<T> {
 	}
 
 	void setInputLimit(int inputLimit) {
-		inputTextField.setTextFormatter(new TextFormatter<>(change -> {
-			return change.isAdded() && change.getControlNewText().length() > inputLimit ? null : change;
-		}));
+		inputTextField.setTextFormatter(new TextFormatter<>(
+				change -> change.isAdded() && change.getControlNewText().length() > inputLimit ? null : change));
 	}
 
 	/**
@@ -118,7 +115,9 @@ public abstract class GeneralController<T> {
 	 */
 	@FXML
 	public void goToMain(ActionEvent event) {
-		((Stage) ((Node) event.getSource()).getScene().getWindow()).setScene(Main.mainScene);
+		Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		mainStage.setTitle("[JAP - Computer Sciene]");
+		mainStage.setScene(Main.mainScene);
 	}
 
 	@FXML
