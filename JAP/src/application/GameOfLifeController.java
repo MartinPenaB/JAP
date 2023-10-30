@@ -68,6 +68,7 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 							running = false;
 						}
 					});
+					
 					timeline.getKeyFrames().add(keyFrame);
 				}
 
