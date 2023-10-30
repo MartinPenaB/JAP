@@ -23,7 +23,7 @@ AnchorPane {
     -fx-padding: 3.0px 8.0px;
 }
 
-#infoLabel, #inputLabel{
+#infoLabel, #iterationsLabel, #ruleLabel{
 	-fx-text-fill: white;
 }
 
@@ -82,7 +82,5 @@ AnchorPane {
 .text-field:hover {
     -fx-border-color: #2980b9;
 }
-
-
 
 

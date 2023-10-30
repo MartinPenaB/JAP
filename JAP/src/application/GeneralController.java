@@ -23,9 +23,11 @@ public abstract class GeneralController<T> {
 	@FXML
 	protected AnchorPane footerAnchorPane;
 	@FXML
-	protected TextField inputTextField;
+	protected TextField iterationsTextField;
 	@FXML
-	protected Label inputLabel;
+	protected TextField ruleTextField;
+	@FXML
+	protected Label iterationsLabel;
 	@FXML
 	protected Button startButton;
 	@FXML
@@ -42,6 +44,8 @@ public abstract class GeneralController<T> {
 	protected Button resetButton;
 	@FXML
 	protected Label infoLabel;
+	@FXML
+	protected Label ruleLabel;
 	@FXML
 	protected MenuButton languageMenuButton;
 	@FXML
@@ -68,6 +72,7 @@ public abstract class GeneralController<T> {
 	void setDictionary() {
 		dictionary.put("Select a project", "Elija un projecto");
 		dictionary.put("English", "Ingles");
+		dictionary.put("Rule", "Regla");
 		dictionary.put("Back", "Atras");
 		dictionary.put("Stop", "Parar");
 		dictionary.put("Reset", "Resetear");
@@ -103,8 +108,8 @@ public abstract class GeneralController<T> {
 		return inSpanish ? dictionary.get(str) : str;
 	}
 
-	void setInputLimit(int inputLimit) {
-		inputTextField.setTextFormatter(new TextFormatter<>(
+	void setInputLimit(int inputLimit, TextField textField) {
+		textField.setTextFormatter(new TextFormatter<>(
 				change -> change.isAdded() && change.getControlNewText().length() > inputLimit ? null : change));
 	}
 

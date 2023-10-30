@@ -1,12 +1,14 @@
 package application;
 
+import java.util.Random;
+
 import javafx.scene.paint.Color;
 
 
 public class GameOfLife extends Project {
 	
 	static final float ANIMATION_DELAY_MS = 100f;
-
+	
 	@Override
 	String getFxml() {
 		return "GL.fxml";
@@ -44,22 +46,36 @@ public class GameOfLife extends Project {
 				+ getRowNeighbors(row + 1, col, false);
 	}
 
-	char getCellFate(int row, int col) {
+	char getCellFate(int row, int col, String rules) {
 		Color state = getColor(row, col);
 		int neighbors = getTotalNeighbors(row, col);
-		if (state.equals(Color.BLACK) && (neighbors < 2 || neighbors > 3))
-			return '0';
-		else if (neighbors == 3)
-			return '1';
-		return state.equals(Color.BLACK) ? '1' : '0';
+		String deadRule = "000100000";
+		String aliveRule = "001100000";
+		if(rules.matches("^[01]{18}$")) {
+			deadRule = rules.substring(0, 9);
+			aliveRule = rules.substring(9);
+		}else 
+			controller.ruleTextField.clear();
+		return state.equals(Color.BLACK)? aliveRule.charAt(neighbors):deadRule.charAt(neighbors);
+//		if (state.equals(Color.BLACK) && (neighbors < 2 || neighbors > 3))
+//			return '0';
+//		else if (neighbors == 3)
+//			return '1';
+//		return state.equals(Color.BLACK) ? '1' : '0';
 	}
 
-	char[][] getNewGen() {
+	char[][] getNewGen(String rules) {
 		char[][] snapshot = new char[gridHeight][gridWidth];
 		for (int row = 0; row < gridHeight; row++)
 			for (int cell = 0; cell < gridWidth; cell++)
-				snapshot[row][cell] = getCellFate(row, cell);
+				snapshot[row][cell] = getCellFate(row, cell, rules);
 		return snapshot;
+	}
+	
+	void randomizeGrid(Random rand) {
+		for (int row = 0; row < gridHeight; row++)
+			for (int cell = 0; cell < gridWidth; cell++)
+				toggleCell(row, cell, rand.nextBoolean()?'1':'0');
 	}
 
 	void updateGrid(char[][] snapshot) {

@@ -24,13 +24,15 @@
 		<AnchorPane fx:id="footerAnchorPane" prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
 			<children>
 				<Button fx:id="backButton" layoutX="5.0" layoutY="11.0" mnemonicParsing="false" onAction="#goToMain" text="Back" />
-				<Button fx:id="stopButton" layoutX="230.0" layoutY="11.0" mnemonicParsing="false" onAction="#stop" text="Stop" />
-				<Button fx:id="resetButton" layoutX="560.0" layoutY="11.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
-				<Button fx:id="clearButton" layoutX="170.0" layoutY="11.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
-				<Label fx:id="inputLabel" layoutX="290.0" layoutY="15.0" text="Iterations:" />
-				<Label fx:id="infoLabel" layoutX="480.0" layoutY="12.0" text="Exec: 0" />
-				<TextField fx:id="inputTextField" layoutX="355.0" layoutY="12.0" prefHeight="25.0" prefWidth="50.0" />
-				<Button fx:id="startButton" layoutX="410.0" layoutY="11.0" mnemonicParsing="false" onAction="#start" text="Start" />
+				<Button fx:id="stopButton" layoutX="160.0" layoutY="11.0" mnemonicParsing="false" onAction="#stop" text="Stop" />
+				<Button fx:id="resetButton" layoutX="490.0" layoutY="11.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
+				<Button fx:id="clearButton" layoutX="100.0" layoutY="11.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
+				<Label fx:id="iterationsLabel" layoutX="220.0" layoutY="15.0" text="Iterations:" />
+				<Label fx:id="infoLabel" layoutX="410.0" layoutY="12.0" text="Exec: 0" />
+				<Label fx:id="ruleLabel" layoutX="580.0" layoutY="15.0" text="Rule:" />
+				<TextField fx:id="iterationsTextField" layoutX="285.0" layoutY="12.0" prefHeight="25.0" prefWidth="50.0" />
+				<TextField fx:id="ruleTextField" layoutX="620.0" layoutY="12.0" prefHeight="25.0" prefWidth="130.0" />
+				<Button fx:id="startButton" layoutX="340.0" layoutY="11.0" mnemonicParsing="false" onAction="#start" text="Start" />
 			</children>
 		</AnchorPane>
 	</bottom>

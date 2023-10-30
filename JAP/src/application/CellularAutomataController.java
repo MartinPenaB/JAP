@@ -14,14 +14,14 @@ public class CellularAutomataController extends GeneralController<CellularAutoma
 
 	@FXML
 	public void initialize() {
-		setInputLimit(8);
+		setInputLimit(8, ruleTextField);
 	}
 
 	@Override
 	void setLanguage() {
 		modelLabel = translate("Model", inSpanish);
 		infoLabel.setText(modelLabel + ": " + modelValue);
-		inputLabel.setText(modelLabel + ":");
+		ruleLabel.setText(modelLabel + ":");
 		startButton.setText(translate("Set", inSpanish));
 		stage.setTitle(translate(project.getTitle(), inSpanish));
 		alertHeaderText = translate("Invalid input", inSpanish);
@@ -31,8 +31,9 @@ public class CellularAutomataController extends GeneralController<CellularAutoma
 
 	@Override
 	public void start(ActionEvent event) {
-		String model = inputTextField.getText();
-		if (model.matches("^[01]+$") && model.length() == 8 && (modelValue = project.toDec(model)) <= 255) {
+		String model = ruleTextField.getText();
+		if (model.matches("^[01]{8}$")) {
+			modelValue = project.toDec(model);
 			infoLabel.setText(modelLabel + ": " + modelValue);
 			project.evolve(model);
 		} else

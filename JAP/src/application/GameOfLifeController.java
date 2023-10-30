@@ -15,18 +15,21 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 
 	@FXML
 	public void initialize() {
-		setInputLimit(3);
+		setInputLimit(3, iterationsTextField);
+		setInputLimit(18, ruleTextField);
+		ruleTextField.setPromptText("000100000001100000");
 	}
 
 	@Override
 	void setLanguage() {
-		inputLabel.setText(translate("Iterations", inSpanish) + ":");
+		iterationsLabel.setText(translate("Iterations", inSpanish) + ":");
 		startButton.setText(translate("Start", inSpanish));
 		stopButton.setText(translate("Stop", inSpanish));
 		stage.setTitle(translate(project.getTitle(), inSpanish));
 		backButton.setText(translate("Back", inSpanish));
 		resetButton.setText(translate("Reset", inSpanish));
 		clearButton.setText(translate("Clear", inSpanish));
+		ruleLabel.setText(translate("Rule", inSpanish) + ":");
 		alertHeaderText = translate("Invalid input", inSpanish);
 		alertContentText = translate("Please enter a positive integer.", inSpanish);
 	}
@@ -46,8 +49,8 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 			startButton.setDisable(true);
 		} else
 			try {
-				int iterations = Integer.parseInt(inputTextField.getText());
-				if (iterations < 0)
+				int total = Integer.parseInt(iterationsTextField.getText());
+				if (total < 0)
 					throw new NumberFormatException();
 
 				startButton.setDisable(true);
@@ -55,12 +58,12 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 				running = true;
 				saveGridState();
 				
-				for (int exec = 0; exec <= iterations; exec++) {
+				for (int exec = 0; exec <= total; exec++) {
 					int iteration = exec;
 					KeyFrame keyFrame = new KeyFrame(Duration.millis(GameOfLife.ANIMATION_DELAY_MS * exec), e -> {
-						project.updateGrid(project.getNewGen());
+						project.updateGrid(project.getNewGen(ruleTextField.getText()));
 						infoLabel.setText("Exce: " + iteration);
-						if (iteration == iterations) {
+						if (iteration == total) {
 							startButton.setDisable(false);
 							running = false;
 						}
