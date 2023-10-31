@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.AnchorPane;
@@ -30,6 +31,10 @@ public abstract class GeneralController<T> {
 	protected Label iterationsLabel;
 	@FXML
 	protected Button startButton;
+	@FXML
+	protected Button randomButton;
+	@FXML
+	protected RadioButton multicolorRadioButton;
 	@FXML
 	protected Button closeButton;
 	@FXML
@@ -72,6 +77,7 @@ public abstract class GeneralController<T> {
 	void setDictionary() {
 		dictionary.put("Select a project", "Elija un projecto");
 		dictionary.put("English", "Ingles");
+		dictionary.put("Random", "Aleatorio");
 		dictionary.put("Rule", "Regla");
 		dictionary.put("Back", "Atras");
 		dictionary.put("Stop", "Parar");

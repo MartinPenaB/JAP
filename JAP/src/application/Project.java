@@ -1,5 +1,7 @@
 package application;
 
+import java.util.Random;
+
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -13,6 +15,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public abstract class Project {
+
+	Random rand = new Random();
+	boolean colorsAreRandomized = false;
 
 	static final int DEFAULT_GRID_WIDTH = 69;
 	static final int DEFAULT_GRID_HEIGHT = 35;
@@ -66,16 +71,21 @@ public abstract class Project {
 
 		if (allowInteraction)
 			cell.setOnMouseClicked(event -> {
+				Color aliveColor = getAliveColor(colorsAreRandomized);
 				if (event.getButton() == MouseButton.PRIMARY)
-					cell.setFill(cell.getFill().equals(Color.WHITESMOKE) ? Color.BLACK : Color.WHITESMOKE);
+					cell.setFill(cell.getFill().equals(Color.WHITESMOKE) ? aliveColor : Color.WHITESMOKE);
 			});
 
 		grid.add(cell, col, row);
 	}
-	
+
+	Color getAliveColor(boolean random) {
+		return random ? new Color(rand.nextDouble(), rand.nextDouble(), rand.nextDouble(), 1) : Color.BLACK;
+	}
+
 	Rectangle getCell(int row, int col) {
-		if(row>-1 && row<gridHeight && col >-1 && col<gridWidth)
-			return (Rectangle)grid.getChildren().get(row * gridWidth + col);
+		if (row > -1 && row < gridHeight && col > -1 && col < gridWidth)
+			return (Rectangle) grid.getChildren().get(row * gridWidth + col);
 		throw new IndexOutOfBoundsException("Invalid row or column index in getCell");
 	}
 
@@ -87,7 +97,8 @@ public abstract class Project {
 	 * @param state The state of the cell ('0' or '1').
 	 */
 	void toggleCell(int row, int col, char state) {
-		getCell(row, col).setFill(state == '0' ? Color.WHITESMOKE : Color.BLACK);
+		Color aliveColor = getAliveColor(colorsAreRandomized);
+		getCell(row, col).setFill(state == '0' ? Color.WHITESMOKE : aliveColor);
 	}
 
 	void clearGrid() {
@@ -95,6 +106,7 @@ public abstract class Project {
 			for (int col = 0; col < gridWidth; col++)
 				toggleCell(row, col, '0');
 	}
+
 	/**
 	 * Displays an alert dialog with the given header and content text.
 	 *

@@ -1,14 +1,11 @@
 package application;
 
-import java.util.Random;
-
 import javafx.scene.paint.Color;
 
-
 public class GameOfLife extends Project {
-	
+
 	static final float ANIMATION_DELAY_MS = 100f;
-	
+
 	@Override
 	String getFxml() {
 		return "GL.fxml";
@@ -32,13 +29,13 @@ public class GameOfLife extends Project {
 		}
 	}
 
-	int getNum(int row, int col) {
+	int getVal(int row, int col) {
 		Color color = getColor(row, col);
-		return (color != null && color.equals(Color.BLACK)) ? 1 : 0;
+		return color != null && !color.equals(Color.WHITESMOKE) ? 1 : 0;
 	}
 
 	int getRowNeighbors(int row, int col, boolean containsSelf) {
-		return getNum(row, col - 1) + getNum(row, containsSelf ? -1 : col) + getNum(row, col + 1);
+		return getVal(row, col - 1) + getVal(row, containsSelf ? -1 : col) + getVal(row, col + 1);
 	}
 
 	int getTotalNeighbors(int row, int col) {
@@ -51,12 +48,12 @@ public class GameOfLife extends Project {
 		int neighbors = getTotalNeighbors(row, col);
 		String deadRule = "000100000";
 		String aliveRule = "001100000";
-		if(rules.matches("^[01]{18}$")) {
+		if (rules.matches("^[01]{18}$")) {
 			deadRule = rules.substring(0, 9);
 			aliveRule = rules.substring(9);
-		}else 
+		} else
 			controller.ruleTextField.clear();
-		return state.equals(Color.BLACK)? aliveRule.charAt(neighbors):deadRule.charAt(neighbors);
+		return state.equals(Color.WHITESMOKE) ? deadRule.charAt(neighbors) : aliveRule.charAt(neighbors);
 //		if (state.equals(Color.BLACK) && (neighbors < 2 || neighbors > 3))
 //			return '0';
 //		else if (neighbors == 3)
@@ -71,11 +68,11 @@ public class GameOfLife extends Project {
 				snapshot[row][cell] = getCellFate(row, cell, rules);
 		return snapshot;
 	}
-	
-	void randomizeGrid(Random rand) {
+
+	void randomizeGrid() {
 		for (int row = 0; row < gridHeight; row++)
 			for (int cell = 0; cell < gridWidth; cell++)
-				toggleCell(row, cell, rand.nextBoolean()?'1':'0');
+				toggleCell(row, cell, rand.nextBoolean() ? '1' : '0');
 	}
 
 	void updateGrid(char[][] snapshot) {

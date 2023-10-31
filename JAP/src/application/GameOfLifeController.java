@@ -32,13 +32,14 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 		ruleLabel.setText(translate("Rule", inSpanish) + ":");
 		alertHeaderText = translate("Invalid input", inSpanish);
 		alertContentText = translate("Please enter a positive integer.", inSpanish);
+		randomButton.setText(translate("Random", inSpanish));
 	}
 
 	void saveGridState() {
 		snapshot = new char[project.gridHeight][project.gridWidth];
 		for (int row = 0; row < project.gridHeight; row++)
 			for (int col = 0; col < project.gridWidth; col++)
-				snapshot[row][col] = project.getColor(row, col).equals(Color.BLACK) ? '1' : '0';
+				snapshot[row][col] = project.getColor(row, col).equals(Color.WHITESMOKE) ? '0' : '1';
 	}
 
 	@Override
@@ -57,7 +58,7 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 				timeline.getKeyFrames().clear();
 				running = true;
 				saveGridState();
-				
+
 				for (int exec = 0; exec <= total; exec++) {
 					int iteration = exec;
 					KeyFrame keyFrame = new KeyFrame(Duration.millis(GameOfLife.ANIMATION_DELAY_MS * exec), e -> {
@@ -68,8 +69,9 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 							running = false;
 						}
 					});
-					
+
 					timeline.getKeyFrames().add(keyFrame);
+					
 				}
 
 				timeline.play();
@@ -98,6 +100,16 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 	void stop() {
 		timeline.pause();
 		startButton.setDisable(false);
+	}
+
+	@FXML
+	void randomize() {
+		project.randomizeGrid();
+	}
+
+	@FXML
+	void multicolor() {
+		project.colorsAreRandomized = !project.colorsAreRandomized;
 	}
 
 }
