@@ -2,6 +2,7 @@ package application;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 /**
@@ -123,8 +124,9 @@ public class CellularAutomata extends Project {
 	}
 
 	@Override
-	void updateGridColors() {
-		//no update, default colors are used
+	Color getAliveColor(int row, int col) {
+		return multicolor? Color.RED: Color.BLACK;
 	}
+
 
 }

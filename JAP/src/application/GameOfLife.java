@@ -28,14 +28,6 @@ public class GameOfLife extends Project {
 		return "[A22] GL - Game of Life";
 	}
 
-	Color getCellColor(int row, int col) {
-		try {
-			return (Color) getCell(row, col).getFill();
-		} catch (IndexOutOfBoundsException e) {
-			return null;
-		}
-	}
-
 	int getCellValue(int row, int col) {
 		Color color = getCellColor(row, col);
 		return color != null && !color.equals(DEFAULT_COLOR) ? 1 : 0;
@@ -83,13 +75,7 @@ public class GameOfLife extends Project {
 				toggleCell(row, cell, snapshot[row][cell]);
 	}
 	
-	void updateGridColors() {
-		for (int row = 0; row < gridHeight; row++)
-			for (int cell = 0; cell < gridWidth; cell++)
-				if(!getCellColor(row, cell).equals(DEFAULT_COLOR))
-					getCell(row, cell).setFill(getAliveColor(row, cell));
-	}
-
+	@Override
 	Color getAliveColor(int row, int col) {
 		
 		Color aliveColor;

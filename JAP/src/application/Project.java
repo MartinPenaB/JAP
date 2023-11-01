@@ -14,7 +14,7 @@ import javafx.scene.shape.Rectangle;
 
 public abstract class Project {
 
-	boolean multicolor = true;
+	boolean multicolor = false;
 	
 	static final Color DEFAULT_COLOR = Color.WHITESMOKE;
 
@@ -78,8 +78,23 @@ public abstract class Project {
 
 		grid.add(cell, col, row);
 	}
+	
+	Color getCellColor(int row, int col) {
+		try {
+			return (Color) getCell(row, col).getFill();
+		} catch (IndexOutOfBoundsException e) {
+			return null;
+		}
+	}
 
-	abstract void updateGridColors();
+	void updateGridColors() {
+		for (int row = 0; row < gridHeight; row++)
+			for (int cell = 0; cell < gridWidth; cell++)
+				if(!getCellColor(row, cell).equals(DEFAULT_COLOR))
+					getCell(row, cell).setFill(getAliveColor(row, cell));
+	}
+	
+	abstract Color getAliveColor(int row, int col);
 
 	Rectangle getCell(int row, int col) {
 		if (row > -1 && row < gridHeight && col > -1 && col < gridWidth)
@@ -95,7 +110,7 @@ public abstract class Project {
 	 * @param state The state of the cell ('0' or '1').
 	 */
 	void toggleCell(int row, int col, char state) {
-		getCell(row, col).setFill(state == '0' ? DEFAULT_COLOR : Color.BLACK);
+		getCell(row, col).setFill(state == '0' ? DEFAULT_COLOR : getAliveColor(row, col));
 	}
 
 	void clearGrid() {

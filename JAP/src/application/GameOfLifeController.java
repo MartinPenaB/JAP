@@ -59,13 +59,13 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 				animationIsRunning = true;
 				saveGridState();
 
-				for (int exec = 0; exec <= total; exec++) {
-					int iteration = exec;
-					KeyFrame keyFrame = new KeyFrame(Duration.millis(GameOfLife.ANIMATION_DELAY_MS * exec), e -> {
+				for (int i = 0; i <= total; i++) {
+					int exce = i;
+					KeyFrame keyFrame = new KeyFrame(Duration.millis(GameOfLife.ANIMATION_DELAY_MS * i), e -> {
 						project.updateGridStates(project.getNewGen(ruleTextField.getText()));
 						project.updateGridColors();
-						infoLabel.setText("Exce: " + iteration);
-						if (iteration == total) {
+						infoLabel.setText("Exce: " + exce);
+						if (exce == total) {
 							startButton.setDisable(false);
 							animationIsRunning = false;
 						}
