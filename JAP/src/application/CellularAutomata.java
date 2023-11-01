@@ -122,4 +122,9 @@ public class CellularAutomata extends Project {
 		return "[A12] CA - Cellular Automata";
 	}
 
+	@Override
+	void updateGridColors() {
+		//no update, default colors are used
+	}
+
 }

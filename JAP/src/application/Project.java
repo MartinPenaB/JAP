@@ -1,7 +1,5 @@
 package application;
 
-import java.util.Random;
-
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -16,8 +14,9 @@ import javafx.scene.shape.Rectangle;
 
 public abstract class Project {
 
-	Random rand = new Random();
-	boolean colorsAreRandomized = false;
+	boolean multicolor = true;
+	
+	static final Color DEFAULT_COLOR = Color.WHITESMOKE;
 
 	static final int DEFAULT_GRID_WIDTH = 69;
 	static final int DEFAULT_GRID_HEIGHT = 35;
@@ -65,23 +64,22 @@ public abstract class Project {
 	}
 
 	void addCell(int row, int col, char state, boolean allowInteraction) {
-		Rectangle cell = new Rectangle(cellSize, cellSize, state == '0' ? Color.WHITESMOKE : Color.BLACK);
+		Rectangle cell = new Rectangle(cellSize, cellSize, state == '0' ? DEFAULT_COLOR : Color.BLACK);
 		cell.setStroke(Color.DARKGREY);
 		GridPane.setConstraints(cell, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
 
 		if (allowInteraction)
 			cell.setOnMouseClicked(event -> {
-				Color aliveColor = getAliveColor(colorsAreRandomized);
-				if (event.getButton() == MouseButton.PRIMARY)
-					cell.setFill(cell.getFill().equals(Color.WHITESMOKE) ? aliveColor : Color.WHITESMOKE);
+				if (event.getButton() == MouseButton.PRIMARY) {
+					cell.setFill(cell.getFill().equals(DEFAULT_COLOR) ? Color.BLACK : DEFAULT_COLOR);
+					updateGridColors();
+				}
 			});
 
 		grid.add(cell, col, row);
 	}
 
-	Color getAliveColor(boolean random) {
-		return random ? new Color(rand.nextDouble(), rand.nextDouble(), rand.nextDouble(), 1) : Color.BLACK;
-	}
+	abstract void updateGridColors();
 
 	Rectangle getCell(int row, int col) {
 		if (row > -1 && row < gridHeight && col > -1 && col < gridWidth)
@@ -97,8 +95,7 @@ public abstract class Project {
 	 * @param state The state of the cell ('0' or '1').
 	 */
 	void toggleCell(int row, int col, char state) {
-		Color aliveColor = getAliveColor(colorsAreRandomized);
-		getCell(row, col).setFill(state == '0' ? Color.WHITESMOKE : aliveColor);
+		getCell(row, col).setFill(state == '0' ? DEFAULT_COLOR : Color.BLACK);
 	}
 
 	void clearGrid() {

@@ -10,7 +10,7 @@ import javafx.util.Duration;
 public class GameOfLifeController extends GeneralController<GameOfLife> {
 
 	Timeline timeline = new Timeline();
-	boolean running = false;
+	boolean animationIsRunning = false;
 	char[][] snapshot;
 
 	@FXML
@@ -39,13 +39,13 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 		snapshot = new char[project.gridHeight][project.gridWidth];
 		for (int row = 0; row < project.gridHeight; row++)
 			for (int col = 0; col < project.gridWidth; col++)
-				snapshot[row][col] = project.getColor(row, col).equals(Color.WHITESMOKE) ? '0' : '1';
+				snapshot[row][col] = project.getCellColor(row, col).equals(Color.WHITESMOKE) ? '0' : '1';
 	}
 
 	@Override
 	public void start(ActionEvent event) {
 
-		if (running) {
+		if (animationIsRunning) {
 			timeline.play();
 			startButton.setDisable(true);
 		} else
@@ -56,17 +56,18 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 
 				startButton.setDisable(true);
 				timeline.getKeyFrames().clear();
-				running = true;
+				animationIsRunning = true;
 				saveGridState();
 
 				for (int exec = 0; exec <= total; exec++) {
 					int iteration = exec;
 					KeyFrame keyFrame = new KeyFrame(Duration.millis(GameOfLife.ANIMATION_DELAY_MS * exec), e -> {
-						project.updateGrid(project.getNewGen(ruleTextField.getText()));
+						project.updateGridStates(project.getNewGen(ruleTextField.getText()));
+						project.updateGridColors();
 						infoLabel.setText("Exce: " + iteration);
 						if (iteration == total) {
 							startButton.setDisable(false);
-							running = false;
+							animationIsRunning = false;
 						}
 					});
 
@@ -83,12 +84,15 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 
 	@FXML
 	void reset() {
-		running = false;
+		animationIsRunning = false;
 		timeline.stop();
 		infoLabel.setText("Exce: 0");
 		startButton.setDisable(false);
-		if (snapshot != null)
-			project.updateGrid(snapshot);
+		if (snapshot != null) {
+			project.updateGridStates(snapshot);
+			project.updateGridColors();
+		}
+			
 	}
 
 	@FXML
@@ -104,12 +108,14 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 
 	@FXML
 	void randomize() {
-		project.randomizeGrid();
+		project.randomizeGridStates();
+		project.updateGridColors();
 	}
 
 	@FXML
 	void multicolor() {
-		project.colorsAreRandomized = !project.colorsAreRandomized;
+		project.multicolor = !project.multicolor;
+		project.updateGridColors();
 	}
 
 }
