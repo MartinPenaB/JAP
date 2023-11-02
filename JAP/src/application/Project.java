@@ -40,9 +40,9 @@ public abstract class Project {
 	 *
 	 * @param scene The scene to which the grid will be added.
 	 */
-	void generateGrid(Scene scene, Project project) {
+	void generateGrid() {
 		grid = new GridPane();
-		initializeGrid('0', project instanceof GameOfLife);
+		initializeGrid('0', this instanceof GameOfLife);
 		addGridToScene(scene);
 	}
 
