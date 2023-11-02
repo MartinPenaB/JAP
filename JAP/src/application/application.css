@@ -28,21 +28,13 @@ AnchorPane {
 }
 
 
-
-#languageMenuButton {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #3498db;
-    -fx-border-width: 1px;
-    -fx-border-radius: 0;
-    -fx-text-fill: #3498db;
-    -fx-padding: 1;
+#languageMenuBar {
+    -fx-background-color: #4d94ff;
 }
 
-#languageMenuButton .arrow {
-    -fx-background-color: #3498db;
-    -fx-shape: "M 0 0 L 5 5 L 10 0 Z";
+#languageMenuBar .menu .label {
+    -fx-font-size: 14px;
 }
-
 
 
 #projectComboBox {

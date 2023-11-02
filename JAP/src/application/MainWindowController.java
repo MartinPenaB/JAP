@@ -6,8 +6,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -15,6 +16,9 @@ import javafx.stage.Stage;
  * The main controller class for the application.
  */
 public class MainWindowController extends GeneralController<Project> {
+	
+	String helpHeaderText = "Help";
+	String helpContentText = "Select one of the projects using the drop down list and click OK to confirm selection.";
 
 	@FXML
 	public void initialize() {
@@ -75,13 +79,14 @@ public class MainWindowController extends GeneralController<Project> {
 	 * @throws IOException If an I/O error occurs.
 	 */
 	@FXML
-	public void openHelp(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("Help.fxml"));
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		Scene scene = new Scene(root);
-		addStyle(scene, "application.css");
-		stage.setScene(scene);
-		stage.show();
+	public void openHelp() {
+		new Alert(AlertType.INFORMATION) {
+			{
+				setHeaderText(helpHeaderText);
+				setContentText(helpContentText);
+				show();
+			}
+		};
 	}
 
 	/**
@@ -95,10 +100,12 @@ public class MainWindowController extends GeneralController<Project> {
 	@Override
 	void setLanguage() {
 		projectComboBox.setPromptText(translate("Select a project", inSpanish));
-		languageMenuButton.setText(translate("Language", inSpanish));
-		languageMenuButton.getItems().forEach(item -> item.setText(translate(item.getText(), inSpanish)));
+		languageMenuBar.getMenus().getFirst().setText(translate("Language", inSpanish));
+		languageMenuBar.getMenus().getFirst().getItems().forEach(item -> item.setText(translate(item.getText(), inSpanish)));	
 		closeButton.setText(translate("Close", inSpanish));
 		helpButton.setText(translate("Help", inSpanish));
+		helpHeaderText = translate("Help", inSpanish);
+		helpContentText = translate("Select one of the projects using the drop down list and click OK to confirm selection.", inSpanish);
 	}
 
 }

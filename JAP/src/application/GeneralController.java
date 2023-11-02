@@ -6,12 +6,11 @@ import java.util.Map;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
@@ -55,7 +54,7 @@ public abstract class GeneralController<T> {
 	@FXML
 	protected Label ruleLabel;
 	@FXML
-	protected MenuButton languageMenuButton;
+	protected MenuBar languageMenuBar;
 	@FXML
 	protected ComboBox<Project> projectComboBox;
 	@FXML
@@ -79,6 +78,7 @@ public abstract class GeneralController<T> {
 
 	void setDictionary() {
 		dictionary.put("Select a project", "Elija un projecto");
+		dictionary.put("Select one of the projects using the drop down list and click OK to confirm selection.", "Elija uno the los projectos usando el menu y presione OK para confirmar la seleccion.");
 		dictionary.put("English", "Ingles");
 		dictionary.put("Random", "Aleatorio");
 		dictionary.put("Rule", "Regla");
@@ -114,8 +114,15 @@ public abstract class GeneralController<T> {
 	}
 
 	String translate(String str, boolean inSpanish) {
-		return inSpanish ? dictionary.get(str) : str;
+		return inSpanish ?  dictionary.getOrDefault(str, str) : getKeyFromValue(str);
 	}
+	
+	String getKeyFromValue(String value) {
+        for (Map.Entry<String, String> entry : dictionary.entrySet()) 
+        	 if (value.equals(entry.getValue())) return entry.getKey();
+        return value;
+    }
+
 
 	void setInputLimit(int inputLimit, TextField textField) {
 		textField.setTextFormatter(new TextFormatter<>(
@@ -128,10 +135,8 @@ public abstract class GeneralController<T> {
 	 * @param event The ActionEvent triggered by the button click.
 	 */
 	@FXML
-	public void goToMain(ActionEvent event) {
-		Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		mainStage.setTitle("[JAP - Computer Sciene]");
-		mainStage.setScene(Main.mainScene);
+	public void goToMain() {
+		stage.setScene(Main.mainScene);
 	}
 
 	@FXML
