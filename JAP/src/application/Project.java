@@ -15,7 +15,7 @@ import javafx.scene.shape.Rectangle;
 public abstract class Project {
 
 	boolean multicolor = false;
-	
+
 	static final Color DEFAULT_COLOR = Color.WHITESMOKE;
 
 	static final int DEFAULT_GRID_WIDTH = 69;
@@ -40,7 +40,7 @@ public abstract class Project {
 	 *
 	 * @param scene The scene to which the grid will be added.
 	 */
-	void makeGrid(Scene scene, Project project) {
+	void generateGrid(Scene scene, Project project) {
 		grid = new GridPane();
 		initializeGrid('0', project instanceof GameOfLife);
 		addGridToScene(scene);
@@ -78,7 +78,7 @@ public abstract class Project {
 
 		grid.add(cell, col, row);
 	}
-	
+
 	Color getCellColor(int row, int col) {
 		try {
 			return (Color) getCell(row, col).getFill();
@@ -90,10 +90,10 @@ public abstract class Project {
 	void updateGridColors() {
 		for (int row = 0; row < gridHeight; row++)
 			for (int cell = 0; cell < gridWidth; cell++)
-				if(!getCellColor(row, cell).equals(DEFAULT_COLOR))
+				if (!getCellColor(row, cell).equals(DEFAULT_COLOR))
 					getCell(row, cell).setFill(getAliveColor(row, cell));
 	}
-	
+
 	abstract Color getAliveColor(int row, int col);
 
 	Rectangle getCell(int row, int col) {

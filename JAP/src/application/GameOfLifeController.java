@@ -4,7 +4,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class GameOfLifeController extends GeneralController<GameOfLife> {
@@ -39,7 +38,7 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 		snapshot = new char[project.gridHeight][project.gridWidth];
 		for (int row = 0; row < project.gridHeight; row++)
 			for (int col = 0; col < project.gridWidth; col++)
-				snapshot[row][col] = project.getCellColor(row, col).equals(Color.WHITESMOKE) ? '0' : '1';
+				snapshot[row][col] = project.getCellColor(row, col).equals(Project.DEFAULT_COLOR) ? '0' : '1';
 	}
 
 	@Override
@@ -72,7 +71,7 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 					});
 
 					timeline.getKeyFrames().add(keyFrame);
-					
+
 				}
 
 				timeline.play();
@@ -92,7 +91,13 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 			project.updateGridStates(snapshot);
 			project.updateGridColors();
 		}
-			
+
+	}
+	
+	@FXML
+	void changeColor() {
+		project.aliveColor=colorPicker.getValue();
+		project.updateGridColors();
 	}
 
 	@FXML

@@ -5,9 +5,11 @@ import java.util.Random;
 import javafx.scene.paint.Color;
 
 public class GameOfLife extends Project {
-	
+
 	Random rand = new Random();
 	
+	Color aliveColor = Color.BLACK;
+
 	static final String DEAD_RULE = "000100000";
 	static final String ALIVE_RULE = "001100000";
 
@@ -74,47 +76,46 @@ public class GameOfLife extends Project {
 			for (int cell = 0; cell < gridWidth; cell++)
 				toggleCell(row, cell, snapshot[row][cell]);
 	}
-	
+
 	@Override
 	Color getAliveColor(int row, int col) {
-		
-		Color aliveColor;
-		
-		switch(getTotalNeighbors(row, col)) {
-			case 0:
-				aliveColor = Color.RED;
-				break;
-			case 1:
-				aliveColor = Color.GREEN;
-				break;
-			case 2:
-				aliveColor = Color.BLUE;
-				break;
-			case 3:
-				aliveColor = Color.YELLOW;
-				break;
-			case 4:
-				aliveColor = Color.MAGENTA;
-				break;
-			case 5:
-				aliveColor = Color.CYAN;
-				break;
-			case 6:
-				aliveColor = Color.LIGHTBLUE;
-				break;
-			case 7:
-				aliveColor = Color.LIGHTSALMON;
-				break;
-			case 8:
-				aliveColor = Color.VIOLET;
-				break;
-			default:
-				aliveColor = Color.BLACK;
-		}
-		
-		return multicolor? aliveColor : Color.BLACK;
-		
-	}
 
+		Color newAliveColor;
+
+		switch (getTotalNeighbors(row, col)) {
+		case 0:
+			newAliveColor = Color.RED;
+			break;
+		case 1:
+			newAliveColor = Color.GREEN;
+			break;
+		case 2:
+			newAliveColor = Color.BLUE;
+			break;
+		case 3:
+			newAliveColor = Color.YELLOW;
+			break;
+		case 4:
+			newAliveColor = Color.MAGENTA;
+			break;
+		case 5:
+			newAliveColor = Color.CYAN;
+			break;
+		case 6:
+			newAliveColor = Color.LIGHTBLUE;
+			break;
+		case 7:
+			newAliveColor = Color.LIGHTSALMON;
+			break;
+		case 8:
+			newAliveColor = Color.VIOLET;
+			break;
+		default:
+			newAliveColor = Color.BLACK;
+		}
+
+		return multicolor ? newAliveColor : aliveColor;
+
+	}
 
 }

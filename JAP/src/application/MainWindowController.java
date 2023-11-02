@@ -50,7 +50,7 @@ public class MainWindowController extends GeneralController<Project> {
 		GeneralController<Project> controller = loader.getController();
 		controller.setRequiredData(project, stage);
 		project.setRequiredData(scene, controller);
-		project.makeGrid(scene, project);
+		project.generateGrid(scene, project);
 		addStyle(scene, "application.css");
 		projectStageSetup(stage, scene);
 

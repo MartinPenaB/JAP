@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
@@ -31,6 +32,8 @@ public abstract class GeneralController<T> {
 	protected Label iterationsLabel;
 	@FXML
 	protected Button startButton;
+	@FXML
+	protected ColorPicker colorPicker;
 	@FXML
 	protected Button randomButton;
 	@FXML
