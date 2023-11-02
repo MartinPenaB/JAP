@@ -136,6 +136,7 @@ public abstract class GeneralController<T> {
 	 */
 	@FXML
 	public void goToMain() {
+		stage.setTitle("[JAP - Computer Sciene]");
 		stage.setScene(Main.mainScene);
 	}
 
