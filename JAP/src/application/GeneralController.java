@@ -38,6 +38,8 @@ public abstract class GeneralController<T> {
 	@FXML
 	protected RadioButton multicolorRadioButton;
 	@FXML
+	protected RadioButton manualRadioButton;
+	@FXML
 	protected Button closeButton;
 	@FXML
 	protected Button helpButton;

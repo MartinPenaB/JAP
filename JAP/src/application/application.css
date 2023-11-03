@@ -23,7 +23,7 @@ AnchorPane {
     -fx-padding: 3.0px 8.0px;
 }
 
-#infoLabel, #iterationsLabel, #ruleLabel, #multicolorRadioButton{
+#infoLabel, #iterationsLabel, #ruleLabel, #multicolorRadioButton, #manualRadioButton{
 	-fx-text-fill: white;
 }
 

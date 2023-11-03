@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 public abstract class Project {
 
 	boolean multicolor = false;
+	boolean interactable = false;
 
 	static final Color DEFAULT_COLOR = Color.WHITESMOKE;
 
@@ -42,7 +43,7 @@ public abstract class Project {
 	 */
 	void generateGrid() {
 		grid = new GridPane();
-		initializeGrid('0', this instanceof GameOfLife);
+		initializeGrid('0');
 		addGridToScene(scene);
 	}
 
@@ -57,24 +58,23 @@ public abstract class Project {
 		((BorderPane) scene.getRoot()).setCenter(grid);
 	}
 
-	void initializeGrid(char defaultState, boolean allowInteraction) {
+	void initializeGrid(char defaultState) {
 		for (int row = 0; row < gridHeight; row++)
 			for (int col = 0; col < gridWidth; col++)
-				addCell(row, col, defaultState, allowInteraction);
+				addCell(row, col, defaultState);
 	}
 
-	void addCell(int row, int col, char state, boolean allowInteraction) {
+	void addCell(int row, int col, char state) {
 		Rectangle cell = new Rectangle(cellSize, cellSize, state == '0' ? DEFAULT_COLOR : Color.BLACK);
 		cell.setStroke(Color.DARKGREY);
 		GridPane.setConstraints(cell, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
 
-		if (allowInteraction)
-			cell.setOnMouseClicked(event -> {
-				if (event.getButton() == MouseButton.PRIMARY) {
-					cell.setFill(cell.getFill().equals(DEFAULT_COLOR) ? Color.BLACK : DEFAULT_COLOR);
-					updateGridColors();
-				}
-			});
+		cell.setOnMouseClicked(event -> {
+			if (interactable && event.getButton() == MouseButton.PRIMARY) {
+				cell.setFill(cell.getFill().equals(DEFAULT_COLOR) ? Color.BLACK : DEFAULT_COLOR);
+				updateGridColors();
+			}
+		});
 
 		grid.add(cell, col, row);
 	}

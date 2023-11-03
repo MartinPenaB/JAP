@@ -122,5 +122,10 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 		project.multicolor = !project.multicolor;
 		project.updateGridColors();
 	}
+	
+	@FXML
+	void interactable() {
+		project.interactable = !project.interactable;
+	}
 
 }
