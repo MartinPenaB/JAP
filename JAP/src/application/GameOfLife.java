@@ -79,7 +79,7 @@ public class GameOfLife extends Project {
 	@Override
 	Color getAliveColor(int row, int col) {
 		Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.MAGENTA, Color.CYAN, Color.LIGHTBLUE, Color.LIGHTSALMON, Color.VIOLET};
-	    return multicolor ?colors[getTotalNeighbors(row, col)] : controller.colorPicker.getValue();
+	    return useAlternativeColor ?colors[getTotalNeighbors(row, col)] : controller.colorPicker.getValue();
 	}
 	
 }

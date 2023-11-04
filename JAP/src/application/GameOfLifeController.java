@@ -111,7 +111,7 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 
 	@FXML
 	void multicolor() {
-		project.multicolor = !project.multicolor;
+		project.useAlternativeColor = !project.useAlternativeColor;
 		project.updateColors();
 	}
 	

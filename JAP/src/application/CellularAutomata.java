@@ -125,7 +125,7 @@ public class CellularAutomata extends Project {
 
 	@Override
 	Color getAliveColor(int row, int col) {
-		return multicolor ? Color.RED : Color.BLACK;
+		return useAlternativeColor ? Color.RED : Color.BLACK;
 	}
 
 }

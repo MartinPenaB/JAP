@@ -14,7 +14,7 @@ import javafx.scene.shape.Rectangle;
 
 public abstract class Project {
 
-	boolean multicolor = false;
+	boolean useAlternativeColor = false;
 	boolean interactable = false;
 
 	static final Color DEFAULT_COLOR = Color.WHITESMOKE;
