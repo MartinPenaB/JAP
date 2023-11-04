@@ -7,8 +7,6 @@ import javafx.scene.paint.Color;
 public class GameOfLife extends Project {
 
 	Random rand = new Random();
-	
-	Color aliveColor = Color.BLACK;
 
 	static final String DEAD_RULE = "000100000";
 	static final String ALIVE_RULE = "001100000";
@@ -56,66 +54,32 @@ public class GameOfLife extends Project {
 			controller.ruleTextField.clear();
 		return state.equals(DEFAULT_COLOR) ? deadRule.charAt(neighbors) : aliveRule.charAt(neighbors);
 	}
-
-	char[][] getNewGen(String rules) {
-		char[][] snapshot = new char[gridHeight][gridWidth];
-		for (int row = 0; row < gridHeight; row++)
-			for (int cell = 0; cell < gridWidth; cell++)
-				snapshot[row][cell] = getCellFate(row, cell, rules);
-		return snapshot;
+	
+	
+	char[][] getGridState(boolean current, String rules) {
+	    char[][] snapshot = new char[gridHeight][gridWidth];
+	    for (int row = 0; row < gridHeight; row++) 
+	        for (int col = 0; col < gridWidth; col++) 
+	            if (current)
+	                snapshot[row][col] = getCellColor(row, col).equals(Project.DEFAULT_COLOR) ? '0' : '1';
+	            else
+	                snapshot[row][col] = getCellFate(row, col, rules); 
+	    return snapshot;
 	}
 
-	void randomizeGridStates() {
-		for (int row = 0; row < gridHeight; row++)
-			for (int cell = 0; cell < gridWidth; cell++)
-				toggleCell(row, cell, rand.nextBoolean() ? '1' : '0');
-	}
-
-	void updateGridStates(char[][] snapshot) {
-		for (int row = 0; row < gridHeight; row++)
-			for (int cell = 0; cell < gridWidth; cell++)
-				toggleCell(row, cell, snapshot[row][cell]);
+	void modifyStates(boolean random, char[][] snapshot) {
+	    for (int row = 0; row < gridHeight; row++) 
+	        for (int col = 0; col < gridWidth; col++) 
+	            if (random) 
+	                toggleCell(row, col, rand.nextBoolean() ? '1' : '0');
+	            else 
+	                toggleCell(row, col, snapshot[row][col]);       
 	}
 
 	@Override
 	Color getAliveColor(int row, int col) {
-
-		Color newAliveColor;
-
-		switch (getTotalNeighbors(row, col)) {
-		case 0:
-			newAliveColor = Color.RED;
-			break;
-		case 1:
-			newAliveColor = Color.GREEN;
-			break;
-		case 2:
-			newAliveColor = Color.BLUE;
-			break;
-		case 3:
-			newAliveColor = Color.YELLOW;
-			break;
-		case 4:
-			newAliveColor = Color.MAGENTA;
-			break;
-		case 5:
-			newAliveColor = Color.CYAN;
-			break;
-		case 6:
-			newAliveColor = Color.LIGHTBLUE;
-			break;
-		case 7:
-			newAliveColor = Color.LIGHTSALMON;
-			break;
-		case 8:
-			newAliveColor = Color.VIOLET;
-			break;
-		default:
-			newAliveColor = Color.BLACK;
-		}
-
-		return multicolor ? newAliveColor : aliveColor;
-
+		Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.MAGENTA, Color.CYAN, Color.LIGHTBLUE, Color.LIGHTSALMON, Color.VIOLET};
+	    return multicolor ?colors[getTotalNeighbors(row, col)] : controller.colorPicker.getValue();
 	}
-
+	
 }

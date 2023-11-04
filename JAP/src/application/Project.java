@@ -72,7 +72,7 @@ public abstract class Project {
 		cell.setOnMouseClicked(event -> {
 			if (interactable && event.getButton() == MouseButton.PRIMARY) {
 				cell.setFill(cell.getFill().equals(DEFAULT_COLOR) ? Color.BLACK : DEFAULT_COLOR);
-				updateGridColors();
+				updateColors();
 			}
 		});
 
@@ -87,7 +87,7 @@ public abstract class Project {
 		}
 	}
 
-	void updateGridColors() {
+	void updateColors() {
 		for (int row = 0; row < gridHeight; row++)
 			for (int cell = 0; cell < gridWidth; cell++)
 				if (!getCellColor(row, cell).equals(DEFAULT_COLOR))

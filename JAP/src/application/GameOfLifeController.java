@@ -34,13 +34,6 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 		randomButton.setText(translate("Random", inSpanish));
 	}
 
-	void saveGridState() {
-		snapshot = new char[project.gridHeight][project.gridWidth];
-		for (int row = 0; row < project.gridHeight; row++)
-			for (int col = 0; col < project.gridWidth; col++)
-				snapshot[row][col] = project.getCellColor(row, col).equals(Project.DEFAULT_COLOR) ? '0' : '1';
-	}
-
 	@Override
 	public void start(ActionEvent event) {
 
@@ -56,13 +49,13 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 				startButton.setDisable(true);
 				timeline.getKeyFrames().clear();
 				animationIsRunning = true;
-				saveGridState();
+				snapshot = project.getGridState(true, null);
 
 				for (int i = 0; i <= total; i++) {
 					int exce = i;
 					KeyFrame keyFrame = new KeyFrame(Duration.millis(GameOfLife.ANIMATION_DELAY_MS * i), e -> {
-						project.updateGridStates(project.getNewGen(ruleTextField.getText()));
-						project.updateGridColors();
+						project.modifyStates(false, project.getGridState(false, ruleTextField.getText()));
+						project.updateColors();
 						infoLabel.setText("Exce: " + exce);
 						if (exce == total) {
 							startButton.setDisable(false);
@@ -88,16 +81,15 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 		infoLabel.setText("Exce: 0");
 		startButton.setDisable(false);
 		if (snapshot != null) {
-			project.updateGridStates(snapshot);
-			project.updateGridColors();
+			project.modifyStates(false, snapshot);
+			project.updateColors();
 		}
 
 	}
 	
 	@FXML
 	void changeColor() {
-		project.aliveColor=colorPicker.getValue();
-		project.updateGridColors();
+		project.updateColors();
 	}
 
 	@FXML
@@ -113,14 +105,14 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 
 	@FXML
 	void randomize() {
-		project.randomizeGridStates();
-		project.updateGridColors();
+		project.modifyStates(true, null);
+		project.updateColors();
 	}
 
 	@FXML
 	void multicolor() {
 		project.multicolor = !project.multicolor;
-		project.updateGridColors();
+		project.updateColors();
 	}
 	
 	@FXML
