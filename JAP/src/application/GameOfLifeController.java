@@ -34,43 +34,49 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 		randomButton.setText(translate("Random", inSpanish));
 	}
 
+	void continueAnimation() {
+		timeline.play();
+		startButton.setDisable(true);
+	}
+
+	void startAnimation() {
+		try {
+			int total = Integer.parseInt(iterationsTextField.getText());
+			if (total < 0)
+				throw new NumberFormatException();
+
+			startButton.setDisable(true);
+			timeline.getKeyFrames().clear();
+			animationIsRunning = true;
+			snapshot = project.getGridState(true, null);
+
+			for (int i = 0; i <= total; i++) {
+				int exce = i;
+				KeyFrame keyFrame = new KeyFrame(Duration.millis(GameOfLife.ANIMATION_DELAY_MS * i), event -> {
+					project.modifyStates(false, project.getGridState(false, ruleTextField.getText()));
+					project.updateColors();
+					infoLabel.setText("Exce: " + exce);
+					if (exce == total) {
+						startButton.setDisable(false);
+						animationIsRunning = false;
+					}
+				});
+				timeline.getKeyFrames().add(keyFrame);
+			}
+
+			timeline.play();
+		} catch (NumberFormatException e) {
+			Project.showAlert(alertHeaderText, alertContentText);
+		}
+	}
+
 	@Override
 	public void start(ActionEvent event) {
 
-		if (animationIsRunning) {
-			timeline.play();
-			startButton.setDisable(true);
-		} else
-			try {
-				int total = Integer.parseInt(iterationsTextField.getText());
-				if (total < 0)
-					throw new NumberFormatException();
-
-				startButton.setDisable(true);
-				timeline.getKeyFrames().clear();
-				animationIsRunning = true;
-				snapshot = project.getGridState(true, null);
-
-				for (int i = 0; i <= total; i++) {
-					int exce = i;
-					KeyFrame keyFrame = new KeyFrame(Duration.millis(GameOfLife.ANIMATION_DELAY_MS * i), e -> {
-						project.modifyStates(false, project.getGridState(false, ruleTextField.getText()));
-						project.updateColors();
-						infoLabel.setText("Exce: " + exce);
-						if (exce == total) {
-							startButton.setDisable(false);
-							animationIsRunning = false;
-						}
-					});
-
-					timeline.getKeyFrames().add(keyFrame);
-
-				}
-
-				timeline.play();
-			} catch (NumberFormatException e) {
-				Project.showAlert(alertHeaderText, alertContentText);
-			}
+		if (animationIsRunning)
+			continueAnimation();
+		else
+			startAnimation();
 
 	}
 
@@ -86,7 +92,7 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 		}
 
 	}
-	
+
 	@FXML
 	void changeColor() {
 		project.updateColors();
@@ -114,7 +120,7 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 		project.useAlternativeColor = !project.useAlternativeColor;
 		project.updateColors();
 	}
-	
+
 	@FXML
 	void interactable() {
 		project.interactable = !project.interactable;
