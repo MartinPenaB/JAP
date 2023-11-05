@@ -55,6 +55,7 @@ public class GameOfLife extends Project {
 		return state.equals(DEFAULT_COLOR) ? deadRule.charAt(neighbors) : aliveRule.charAt(neighbors);
 	}
 	
+	
 	/**
 	 * Retrieves the grid state as a 2D char array based on the current flag and the provided rules.
 	 * @param current		a boolean indicating whether to get the current grid state or the next
@@ -66,7 +67,7 @@ public class GameOfLife extends Project {
 	    for (int row = 0; row < gridHeight; row++) 
 	        for (int col = 0; col < gridWidth; col++) 
 	            if (current)
-	                snapshot[row][col] = getCellColor(row, col).equals(Project.DEFAULT_COLOR) ? '0' : '1';
+	                snapshot[row][col] = getCellState(row, col);
 	            else
 	                snapshot[row][col] = getCellFate(row, col, rules); 
 	    return snapshot;

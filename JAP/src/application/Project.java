@@ -78,6 +78,11 @@ public abstract class Project {
 
 		grid.add(cell, col, row);
 	}
+	
+	
+	char getCellState(int row, int col) {
+		return getCellColor(row, col).equals(DEFAULT_COLOR) ? '0' : '1';
+	}
 
 	Color getCellColor(int row, int col) {
 		try {
