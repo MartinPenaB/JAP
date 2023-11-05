@@ -55,7 +55,12 @@ public class GameOfLife extends Project {
 		return state.equals(DEFAULT_COLOR) ? deadRule.charAt(neighbors) : aliveRule.charAt(neighbors);
 	}
 	
-	
+	/**
+	 * Retrieves the grid state as a 2D char array based on the current flag and the provided rules.
+	 * @param current		a boolean indicating whether to get the current grid state or the next
+	 * @param rules 		a String containing the rules for determining the next state
+	 * @return a 2D char array representation of the grid state at a given time
+	 */
 	char[][] getGridState(boolean current, String rules) {
 	    char[][] snapshot = new char[gridHeight][gridWidth];
 	    for (int row = 0; row < gridHeight; row++) 
@@ -67,6 +72,11 @@ public class GameOfLife extends Project {
 	    return snapshot;
 	}
 
+	/**
+	 * Modifies the states of the cells based on the random flag and the provided snapshot.
+	 * @param random 		a boolean indicating whether to set states at random
+	 * @param snapshot 		a 2D char array used to update grid states accordingly
+	 */
 	void modifyStates(boolean random, char[][] snapshot) {
 	    for (int row = 0; row < gridHeight; row++) 
 	        for (int col = 0; col < gridWidth; col++) 
@@ -75,6 +85,7 @@ public class GameOfLife extends Project {
 	            else 
 	                toggleCell(row, col, snapshot[row][col]);       
 	}
+	
 
 	@Override
 	Color getAliveColor(int row, int col) {
