@@ -27,19 +27,19 @@
 	<bottom>
 		<AnchorPane fx:id="footerAnchorPane" prefHeight="75.0" prefWidth="770.0" BorderPane.alignment="CENTER">
 			<children>
-				<Button fx:id="stopButton" layoutX="235.0" layoutY="42.0" mnemonicParsing="false" onAction="#stop" text="Stop" />
-				<Button fx:id="resetButton" layoutX="285.0" layoutY="42.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
+				<Button fx:id="stopButton" layoutX="215.0" layoutY="42.0" mnemonicParsing="false" onAction="#stop" text="Stop" />
+				<Button fx:id="resetButton" layoutX="275.0" layoutY="42.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
 				<Button fx:id="randomButton" layoutX="95.0" layoutY="9.0" mnemonicParsing="false" onAction="#randomize" text="Random" />
-				<Button fx:id="clearButton" layoutX="180.0" layoutY="42.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
+				<Button fx:id="clearButton" layoutX="155.0" layoutY="42.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
 				<Label fx:id="iterationsLabel" layoutX="360.0" layoutY="46.0" text="Iterations:" />
-				<Label fx:id="infoLabel" layoutX="550.0" layoutY="43.0" text="Exec: 0" />
+				<Label fx:id="infoLabel" layoutX="570.0" layoutY="43.0" text="Exec: 0" />
 				<Label fx:id="ruleLabel" layoutX="280.0" layoutY="12.0" text="Rule:" />
 				<TextField fx:id="iterationsTextField" layoutX="425.0" layoutY="43.0" prefHeight="25.0" prefWidth="50.0" />
 				<TextField fx:id="ruleTextField" layoutX="315.0" layoutY="9.0" prefHeight="25.0" prefWidth="130.0" />
 				<Button fx:id="startButton" layoutX="485.0" layoutY="42.0" mnemonicParsing="false" onAction="#start" text="Start" />
             <RadioButton fx:id="manualRadioButton" layoutX="165.0" layoutY="12.0" mnemonicParsing="false" onAction="#interactable" text="Manual" />
             <RadioButton fx:id="multicolorRadioButton" layoutX="460.0" layoutY="12.0" mnemonicParsing="false" onAction="#multicolor" text="Multicolor" />
-            <ColorPicker fx:id="colorPicker" layoutX="550.0" layoutY="9.0" onAction="#changeColor">
+            <ColorPicker fx:id="colorPicker" layoutX="550.0" layoutY="9.0" onAction="#changeColor" promptText="Color">
                <value>
                   <Color />
                </value>

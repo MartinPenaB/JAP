@@ -19,14 +19,14 @@ public class CellularAutomataController extends GeneralController<CellularAutoma
 
 	@Override
 	void setLanguage() {
-		modelLabel = translate("Model", inSpanish);
+		modelLabel = translate("Model");
 		infoLabel.setText(modelLabel + ": " + modelValue);
 		ruleLabel.setText(modelLabel + ":");
-		startButton.setText(translate("Set", inSpanish));
-		stage.setTitle(translate(project.getTitle(), inSpanish));
-		alertHeaderText = translate("Invalid input", inSpanish);
-		alertContentText = translate("Please enter a binary number (8 digits).", inSpanish);
-		backButton.setText(translate("Back", inSpanish));
+		startButton.setText(translate("Set"));
+		stage.setTitle(translate(project.getTitle()));
+		alertHeaderText = translate("Invalid input");
+		alertContentText = translate("Please enter a binary number (8 digits).");
+		backButton.setText(translate("Back"));
 	}
 
 	@Override

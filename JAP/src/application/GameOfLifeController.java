@@ -21,17 +21,18 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 
 	@Override
 	void setLanguage() {
-		iterationsLabel.setText(translate("Iterations", inSpanish) + ":");
-		startButton.setText(translate("Start", inSpanish));
-		stopButton.setText(translate("Stop", inSpanish));
-		stage.setTitle(translate(project.getTitle(), inSpanish));
-		backButton.setText(translate("Back", inSpanish));
-		resetButton.setText(translate("Reset", inSpanish));
-		clearButton.setText(translate("Clear", inSpanish));
-		ruleLabel.setText(translate("Rule", inSpanish) + ":");
-		alertHeaderText = translate("Invalid input", inSpanish);
-		alertContentText = translate("Please enter a positive integer.", inSpanish);
-		randomButton.setText(translate("Random", inSpanish));
+		iterationsLabel.setText(translate("Iterations") + ":");
+		startButton.setText(translate("Start"));
+		stopButton.setText(translate("Stop"));
+		stage.setTitle(translate(project.getTitle()));
+		backButton.setText(translate("Back"));
+		resetButton.setText(translate("Reset"));
+		clearButton.setText(translate("Clear"));
+		ruleLabel.setText(translate("Rule") + ":");
+		alertHeaderText = translate("Invalid input");
+		alertContentText = translate("Please enter a positive integer.");
+		randomButton.setText(translate("Random"));
+		multicolorRadioButton.setText(translate("Multicolor"));
 	}
 
 	void continueAnimation() {

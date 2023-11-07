@@ -26,8 +26,38 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Language">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#switchToEnglish" text="English" />
-                        <MenuItem mnemonicParsing="false" onAction="#switchToSpanish" text="Spanish" />
+                    	<MenuItem fx:id="english" mnemonicParsing="false" onAction="#switchLanguage" text="English">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../english.gif" />
+                                 </image>
+                              </ImageView>
+                           </graphic></MenuItem>
+                        <MenuItem fx:id="spanish" mnemonicParsing="false" onAction="#switchLanguage" text="Spanish">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../spanish.gif" />
+                                 </image>
+                              </ImageView>
+                           </graphic></MenuItem>
+                        <MenuItem fx:id="french" mnemonicParsing="false" onAction="#switchLanguage" text="French">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../french.gif" />
+                                 </image>
+                              </ImageView>
+                           </graphic></MenuItem>
+                        <MenuItem fx:id="portuguese" mnemonicParsing="false" onAction="#switchLanguage" text="Portuguese">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../portuguese.gif" />
+                                 </image>
+                              </ImageView>
+                           </graphic></MenuItem>
                   </items>
                 </Menu>
               </menus>

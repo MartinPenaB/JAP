@@ -19,7 +19,8 @@ public class MainWindowController extends GeneralController<Project> {
 	
 	String helpHeaderText = "Help";
 	String helpContentText = "Select one of the projects using the drop down list and click OK to confirm selection.";
-
+	
+	
 	@FXML
 	public void initialize() {
 		setDictionary();
@@ -35,14 +36,16 @@ public class MainWindowController extends GeneralController<Project> {
 	public void start(ActionEvent event) throws IOException {
 
 		Project project = projectComboBox.getValue();
-
+		
 		if (project == null) {
-			Project.showAlert("No project selected", "Please select a project.");
+			setLanguage();
+			Project.showAlert(alertHeaderText, alertContentText);
 			return;
 		}
 
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		Scene scene = project.scene;
+		
 		if (scene != null) {
 			stage.setScene(scene);
 			project.controller.setLanguage();
@@ -99,13 +102,15 @@ public class MainWindowController extends GeneralController<Project> {
 
 	@Override
 	void setLanguage() {
-		projectComboBox.setPromptText(translate("Select a project", inSpanish));
-		languageMenuBar.getMenus().getFirst().setText(translate("Language", inSpanish));
-		languageMenuBar.getMenus().getFirst().getItems().forEach(item -> item.setText(translate(item.getText(), inSpanish)));	
-		closeButton.setText(translate("Close", inSpanish));
-		helpButton.setText(translate("Help", inSpanish));
-		helpHeaderText = translate("Help", inSpanish);
-		helpContentText = translate("Select one of the projects using the drop down list and click OK to confirm selection.", inSpanish);
+		projectComboBox.setPromptText(translate("Select a project"));
+		languageMenuBar.getMenus().getFirst().setText(translate("Language"));
+		languageMenuBar.getMenus().getFirst().getItems().forEach(item -> item.setText(translate(item.getText())));	
+		closeButton.setText(translate("Close"));
+		helpButton.setText(translate("Help"));
+		helpHeaderText = translate("Help");
+		helpContentText = translate("Select one of the projects using the drop down list and click OK to confirm selection.");
+		alertHeaderText = translate("No project selected");
+		alertContentText = translate("Please select a project.");
 	}
 
 }
