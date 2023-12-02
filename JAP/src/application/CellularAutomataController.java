@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 public class CellularAutomataController extends GeneralController<CellularAutomata> {
 
 	private int modelValue = 0;
-
 	String modelLabel;
 
 	@FXML
@@ -22,22 +21,28 @@ public class CellularAutomataController extends GeneralController<CellularAutoma
 		modelLabel = translate("Model");
 		infoLabel.setText(modelLabel + ": " + modelValue);
 		ruleLabel.setText(modelLabel + ":");
-		startButton.setText(translate("Set"));
+		runButton.setText(translate("Set"));
 		stage.setTitle(translate(project.getTitle()));
-		alertHeaderText = translate("Invalid input");
-		alertContentText = translate("Please enter a binary number (8 digits).");
+		inputAlertHeaderText = translate("Invalid input");
+		inputAlertContentText = translate("Please enter a binary number (8 digits).");
 		backButton.setText(translate("Back"));
 	}
 
 	@Override
-	public void start(ActionEvent event) {
+	public void initiateAction(ActionEvent event) {
 		String model = ruleTextField.getText();
 		if (model.matches("^[01]{8}$")) {
 			modelValue = project.toDec(model);
 			infoLabel.setText(modelLabel + ": " + modelValue);
 			project.evolve(model);
 		} else
-			Project.showAlert(alertHeaderText, alertContentText);
+			Project.showAlert(inputAlertHeaderText, inputAlertContentText);
+	}
+
+	@Override
+	void setAdditionalData() {
+		setLanguage();
+		project.generateGrid();
 	}
 
 }

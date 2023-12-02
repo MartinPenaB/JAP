@@ -1,20 +1,30 @@
 package application;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 public abstract class Project {
 
-	boolean useAlternativeColor = false;
+	Scene scene;
+	GeneralController<Project> controller;
+
+	boolean altColor = false;
 	boolean interactable = false;
 
 	static final Color DEFAULT_COLOR = Color.WHITESMOKE;
@@ -28,30 +38,13 @@ public abstract class Project {
 	double cellSize = DEFAULT_CELL_SIZE;
 
 	GridPane grid;
-	Scene scene;
-	GeneralController<Project> controller;
 
-	void setRequiredData(Scene scene, GeneralController<Project> controller) {
-		this.scene = scene;
-		this.controller = controller;
-	}
-
-	/**
-	 * Creates a grid for the cellular automaton and adds it to the specified scene.
-	 *
-	 * @param scene The scene to which the grid will be added.
-	 */
 	void generateGrid() {
 		grid = new GridPane();
 		initializeGrid('0');
 		addGridToScene(scene);
 	}
 
-	/**
-	 * Adds the grid to the specified scene.
-	 *
-	 * @param scene The scene to which the grid will be added.
-	 */
 	void addGridToScene(Scene scene) {
 		grid.setAlignment(Pos.CENTER);
 		grid.setGridLinesVisible(true);
@@ -78,8 +71,7 @@ public abstract class Project {
 
 		grid.add(cell, col, row);
 	}
-	
-	
+
 	char getCellState(int row, int col) {
 		return getCellColor(row, col).equals(DEFAULT_COLOR) ? '0' : '1';
 	}
@@ -96,10 +88,19 @@ public abstract class Project {
 		for (int row = 0; row < gridHeight; row++)
 			for (int cell = 0; cell < gridWidth; cell++)
 				if (!getCellColor(row, cell).equals(DEFAULT_COLOR))
-					getCell(row, cell).setFill(getAliveColor(row, cell));
+					getCell(row, cell).setFill(getFillColor(row, cell));
 	}
 
-	abstract Color getAliveColor(int row, int col);
+	/**
+	 * Gets the color that will be used to fill a cell in the "on" state.
+	 *
+	 * @param row The row index of the cell.
+	 * @param col The column index of the cell.
+	 * @return The color to be used for filling the specified cell in the "on"
+	 *         state.
+	 * 
+	 */
+	abstract Color getFillColor(int row, int col);
 
 	Rectangle getCell(int row, int col) {
 		if (row > -1 && row < gridHeight && col > -1 && col < gridWidth)
@@ -115,7 +116,7 @@ public abstract class Project {
 	 * @param state The state of the cell ('0' or '1').
 	 */
 	void toggleCell(int row, int col, char state) {
-		getCell(row, col).setFill(state == '0' ? DEFAULT_COLOR : getAliveColor(row, col));
+		getCell(row, col).setFill(state == '0' ? DEFAULT_COLOR : getFillColor(row, col));
 	}
 
 	void clearGrid() {
@@ -134,14 +135,53 @@ public abstract class Project {
 		new Alert(AlertType.WARNING) {
 			{
 				setHeaderText(headerText);
-				setContentText(contentText);
+
+				getDialogPane().setContent(new TextArea(contentText) {
+					{
+						setEditable(false);
+						setWrapText(true);
+					}
+				});
+
 				show();
 			}
 		};
 	}
 
+	void createApp(Stage stage) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(getFxml()));
+		scene = new Scene(loader.load());
+		controller = loader.getController();
+		controller.init(this, stage);
+		addStyle("application.css");
+		stage.setScene(scene);
+	}
+
+	void addStyle(String cssFile) {
+		String css = getClass().getResource(cssFile).toExternalForm();
+		scene.getStylesheets().add(css);
+	}
+
 	abstract String getFxml();
 
 	abstract String getTitle();
+
+	void sendData(String data, Socket socket) throws IOException {
+		PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+		out.println(data);
+	}
+	
+	boolean isValidModel(String model) {
+		String regex = "^[01][^\s][01][^\s][01]( [01][^\s][01][^\s][01])*$";
+		if (!model.matches(regex)) {
+			String explenation = "TM must be a series of tuples separated by spaces in the form \"abcde\" where:\n"
+					+ "'a' = current state (0 or 1).\n" + "'b' = character to be read.\n"
+					+ "'c' = next state (0 or 1).\n" + "'d' = character to be written.\n"
+					+ "'e' = position shift (0 for left, 1 for right).";
+			Project.showAlert("Invalid TM" + " (" + model + ")", explenation);
+			return false;
+		}
+		return true;
+	}
 
 }

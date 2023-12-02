@@ -16,28 +16,28 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 	public void initialize() {
 		setInputLimit(3, iterationsTextField);
 		setInputLimit(18, ruleTextField);
-		ruleTextField.setPromptText("000100000001100000");
+		ruleTextField.setPromptText(GameOfLife.DEFAULT_DEAD_RULE + GameOfLife.DEFAULT_ALIVE_RULE);
 	}
 
 	@Override
 	void setLanguage() {
 		iterationsLabel.setText(translate("Iterations") + ":");
-		startButton.setText(translate("Start"));
+		runButton.setText(translate("Start"));
 		stopButton.setText(translate("Stop"));
 		stage.setTitle(translate(project.getTitle()));
 		backButton.setText(translate("Back"));
 		resetButton.setText(translate("Reset"));
 		clearButton.setText(translate("Clear"));
 		ruleLabel.setText(translate("Rule") + ":");
-		alertHeaderText = translate("Invalid input");
-		alertContentText = translate("Please enter a positive integer.");
+		inputAlertHeaderText = translate("Invalid input")+" ("+translate("Iterations").toLowerCase()+")";
+		inputAlertContentText = translate("Please enter a positive integer.");
 		randomButton.setText(translate("Random"));
 		multicolorRadioButton.setText(translate("Multicolor"));
 	}
 
 	void continueAnimation() {
 		timeline.play();
-		startButton.setDisable(true);
+		runButton.setDisable(true);
 	}
 
 	void startAnimation() {
@@ -46,7 +46,7 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 			if (total < 0)
 				throw new NumberFormatException();
 
-			startButton.setDisable(true);
+			runButton.setDisable(true);
 			timeline.getKeyFrames().clear();
 			animationIsRunning = true;
 			snapshot = project.getGridState(true, null);
@@ -58,7 +58,7 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 					project.updateColors();
 					infoLabel.setText("Exce: " + exce);
 					if (exce == total) {
-						startButton.setDisable(false);
+						runButton.setDisable(false);
 						animationIsRunning = false;
 					}
 				});
@@ -67,12 +67,12 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 
 			timeline.play();
 		} catch (NumberFormatException e) {
-			Project.showAlert(alertHeaderText, alertContentText);
+			Project.showAlert(inputAlertHeaderText, inputAlertContentText);
 		}
 	}
 
 	@Override
-	public void start(ActionEvent event) {
+	public void initiateAction(ActionEvent event) {
 
 		if (animationIsRunning)
 			continueAnimation();
@@ -86,7 +86,7 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 		animationIsRunning = false;
 		timeline.stop();
 		infoLabel.setText("Exce: 0");
-		startButton.setDisable(false);
+		runButton.setDisable(false);
 		if (snapshot != null) {
 			project.modifyStates(false, snapshot);
 			project.updateColors();
@@ -107,7 +107,7 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 	@FXML
 	void stop() {
 		timeline.pause();
-		startButton.setDisable(false);
+		runButton.setDisable(false);
 	}
 
 	@FXML
@@ -118,13 +118,19 @@ public class GameOfLifeController extends GeneralController<GameOfLife> {
 
 	@FXML
 	void multicolor() {
-		project.useAlternativeColor = !project.useAlternativeColor;
+		project.altColor = !project.altColor;
 		project.updateColors();
 	}
 
 	@FXML
 	void interactable() {
 		project.interactable = !project.interactable;
+	}
+
+	@Override
+	void setAdditionalData() {
+		setLanguage();
+		project.generateGrid();
 	}
 
 }

@@ -113,19 +113,14 @@ public class CellularAutomata extends Project {
 		return "Cellular Automata";
 	}
 
-	/**
-	 * Returns a string representation of the cellular automaton project.
-	 *
-	 * @return A string describing the project.
-	 */
 	@Override
 	public String toString() {
 		return "[A12] CA - Cellular Automata";
 	}
 
 	@Override
-	Color getAliveColor(int row, int col) {
-		return useAlternativeColor ? Color.RED : Color.BLACK;
+	Color getFillColor(int row, int col) {
+		return altColor ? Color.RED : Color.BLACK;
 	}
 
 }

@@ -13,7 +13,7 @@
 	<children>
 		<AnchorPane prefHeight="205.0" prefWidth="415.0">
 			<children>
-				<Button fx:id="startButton" layoutX="95.0" layoutY="155.0" mnemonicParsing="false" onAction="#start" prefHeight="35.0" prefWidth="65.0" text="OK" />
+				<Button fx:id="startButton" layoutX="95.0" layoutY="155.0" mnemonicParsing="false" onAction="#initiateAction" prefHeight="35.0" prefWidth="65.0" text="OK" />
 				<Button fx:id="closeButton" layoutX="175.0" layoutY="155.0" mnemonicParsing="false" onAction="#quitApplication" prefHeight="35.0" prefWidth="65.0" text="Close" />
 				<Button fx:id="helpButton" layoutX="255.0" layoutY="155.0" mnemonicParsing="false" onAction="#openHelp" prefHeight="35.0" prefWidth="65.0" text="Help" />
 				<ComboBox fx:id="projectComboBox" layoutX="185.0" layoutY="70.0" prefHeight="25.0" prefWidth="215.0" promptText="Select a project" />

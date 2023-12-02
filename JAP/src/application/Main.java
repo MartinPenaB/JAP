@@ -23,7 +23,9 @@ public class Main extends Application {
 			Parent root = loader.load();
 
 			MainWindowController controller = loader.getController();
-			controller.projectComboBox.getItems().addAll(new CellularAutomata(), new GameOfLife());
+
+			controller.projectComboBox.getItems().addAll(new CellularAutomata(), new GameOfLife(), new TuringMachine(),
+					new TMServer(), new TMClient());
 
 			Scene scene = new Scene(root);
 			mainScene = scene;
@@ -33,7 +35,7 @@ public class Main extends Application {
 
 			stage.setResizable(false);
 			stage.getIcons().add(new Image("/javaicon.png"));
-			stage.setTitle("[JAP - Computer Sciene]");
+			stage.setTitle("[JAP - Computer Science]");
 			stage.setScene(scene);
 			stage.show();
 
